@@ -6,10 +6,13 @@ using UnityEngine.AI;
 
 public class PlayerController : MonoBehaviour {
 
+    public bool isInteracting = false;
+
     [Header("Settings")]
     public bool overrideAgentValues = true;
 
     [Header("Values")]
+    public float interactionTime = 2f;
     public float interactRange = 2f;
     public float movementSpeed = 2.5f;
     public float angularSpeed = 360;
@@ -20,6 +23,7 @@ public class PlayerController : MonoBehaviour {
     public Transform target;
 
     private NavMeshAgent agent;
+    private List<GameObject> interactableFlowers = new List<GameObject>();
 
     void Start () {
         GetReferences();
@@ -30,6 +34,15 @@ public class PlayerController : MonoBehaviour {
             SetAgent();
         }
 
+        if (Input.GetKeyDown(KeyCode.E) && isInteracting == false) {
+            FindInteractableFlowers();
+
+            if (interactableFlowers.Count > 0) {
+                Debug.Log("I'm gonna interact with flowers: " + interactableFlowers.Count);
+                StartCoroutine(StartInteractToFlowers());
+            }
+        }
+
         if (target != null) {
             if (Input.GetMouseButtonDown(0)) {
                 OnMouseClick();
@@ -38,7 +51,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void GetReferences() {
-        agent = GetComponentInChildren<NavMeshAgent>();
+        agent = GetComponent<NavMeshAgent>();
         target = GameObject.Find("Target").transform;
     }
 
@@ -50,6 +63,15 @@ public class PlayerController : MonoBehaviour {
         agent.autoBraking = autoBraking;
     }
 
+    void ReleaseAgent() {
+        agent.isStopped = false;
+    }
+
+    void StopAgent() {
+        agent.isStopped = true;
+        SetTarget(transform.position);
+    }
+
     void SetTarget(Vector3 position) {
         if (agent != null && target != null) {
             target.position = position;
@@ -57,13 +79,40 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    void OnDrawGizmosSelected() {
-        Handles.color = new Color(1, 0, 0, 0.1f);
-        Handles.DrawSolidArc(transform.position,
-                transform.up,
-                -transform.right,
-                360,
-                interactRange);
+    void FindInteractableFlowers() {
+        float distance = 0f;
+
+        interactableFlowers = new List<GameObject>();
+
+        foreach (var flower in GameManager.instance.allFlowers) {
+            distance = Vector3.Distance(transform.position, flower.transform.position);
+
+            if (distance <= interactRange) {
+                interactableFlowers.Add(flower);
+            }
+        }
+    }
+
+    IEnumerator StartInteractToFlowers() {
+        isInteracting = true;
+        StopAgent();
+
+        //anim.Start(flowerInteractAnimation);
+
+        foreach (var flower in interactableFlowers) {
+            Debug.Log("Go Die: " + flower.name);
+            //flower.Die();
+        }
+
+        yield return new WaitForSeconds(interactionTime);
+        Debug.Log("I completed my interaction.");
+        isInteracting = false;
+        ReleaseAgent();
+    }
+
+    void OnDrawGizmos() {
+        Gizmos.color = new Color(1, 0, 0, 1f);
+        Gizmos.DrawWireSphere(transform.position, interactRange);
     }
 
     void OnMouseClick() {
