@@ -6,7 +6,16 @@ using UnityEngine.AI;
 
 public class PlayerController : MonoBehaviour {
 
+    [Header("Settings")]
+    public bool overrideAgentValues = true;
+
+    [Header("Values")]
     public float interactRange = 2f;
+    public float movementSpeed = 2.5f;
+    public float angularSpeed = 360;
+    public float acceleration = 8;
+    public float stoppingDistance = 0f;
+    public bool autoBraking = true;
     [HideInInspector]
     public Transform target;
 
@@ -17,14 +26,26 @@ public class PlayerController : MonoBehaviour {
     }
 
     void FixedUpdate() {
+        if (overrideAgentValues) {
+            SetAgent();
+        }
+
         if (target != null) {
             agent.destination = target.position;
         }
     }
 
     void GetReferences() {
-        agent = GetComponent<NavMeshAgent>();
+        agent = GetComponentInChildren<NavMeshAgent>();
         target = GameObject.Find("Target").transform;
+    }
+
+    void SetAgent() {
+        agent.speed = movementSpeed;
+        agent.angularSpeed = angularSpeed;
+        agent.acceleration = acceleration;
+        agent.stoppingDistance = stoppingDistance;
+        agent.autoBraking = autoBraking;
     }
 
     void OnDrawGizmosSelected() {
