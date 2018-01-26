@@ -25,13 +25,15 @@ public class PlayerController : MonoBehaviour {
         GetReferences();
     }
 
-    void FixedUpdate() {
+    void Update() {
         if (overrideAgentValues) {
             SetAgent();
         }
 
         if (target != null) {
-            agent.destination = target.position;
+            if (Input.GetMouseButtonDown(0)) {
+                OnMouseClick();
+            }
         }
     }
 
@@ -48,6 +50,13 @@ public class PlayerController : MonoBehaviour {
         agent.autoBraking = autoBraking;
     }
 
+    void SetTarget(Vector3 position) {
+        if (agent != null && target != null) {
+            target.position = position;
+            agent.destination = target.position;
+        }
+    }
+
     void OnDrawGizmosSelected() {
         Handles.color = new Color(1, 0, 0, 0.1f);
         Handles.DrawSolidArc(transform.position,
@@ -55,5 +64,13 @@ public class PlayerController : MonoBehaviour {
                 -transform.right,
                 360,
                 interactRange);
+    }
+
+    void OnMouseClick() {
+        RaycastHit hit;
+
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity)) {
+            SetTarget(hit.point);
+        }
     }
 }
