@@ -441,6 +441,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allFlowers: []
+  allGraves: []
 --- !u!1001 &1269656083
 Prefab:
   m_ObjectHideFlags: 0
@@ -816,6 +817,16 @@ Prefab:
     - target: {fileID: 114827493088492530, guid: 5c79083f2e67a2841a2965f4390b2edc,
         type: 2}
       propertyPath: overrideAgentValues
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 23092422696017088, guid: 5c79083f2e67a2841a2965f4390b2edc,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114827493088492530, guid: 5c79083f2e67a2841a2965f4390b2edc,
+        type: 2}
+      propertyPath: graveInteractRange
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:

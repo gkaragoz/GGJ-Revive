@@ -12,8 +12,10 @@ public class PlayerController : MonoBehaviour {
     public bool overrideAgentValues = true;
 
     [Header("Values")]
-    public float interactionTime = 2f;
-    public float interactRange = 2f;
+    public float graveInteractionTime = 1f;
+    public float graveInteractRange = 0.5f;
+    public float flowerInteractionTime = 2f;
+    public float flowerInteractRange = 2f;
     public float movementSpeed = 2.5f;
     public float angularSpeed = 360;
     public float acceleration = 8;
@@ -24,6 +26,7 @@ public class PlayerController : MonoBehaviour {
 
     private NavMeshAgent agent;
     private List<GameObject> interactableFlowers = new List<GameObject>();
+    private List<GameObject> interactableGraves = new List<GameObject>();
 
     void Start () {
         GetReferences();
@@ -39,7 +42,18 @@ public class PlayerController : MonoBehaviour {
 
             if (interactableFlowers.Count > 0) {
                 Debug.Log("I'm gonna interact with flowers: " + interactableFlowers.Count);
-                StartCoroutine(StartInteractToFlowers());
+                StartCoroutine(StartInteractWithFlowers());
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.F) && isInteracting == false)
+        {
+            FindInteractableGraves();
+
+            if (interactableGraves.Count > 0)
+            {
+                Debug.Log("I'm gonna interact with graves: " + interactableGraves.Count);
+                StartCoroutine(StartInteractWithGraves());
             }
         }
 
@@ -87,13 +101,13 @@ public class PlayerController : MonoBehaviour {
         foreach (var flower in GameManager.instance.allFlowers) {
             distance = Vector3.Distance(transform.position, flower.transform.position);
 
-            if (distance <= interactRange) {
+            if (distance <= flowerInteractRange) {
                 interactableFlowers.Add(flower);
             }
         }
     }
 
-    IEnumerator StartInteractToFlowers() {
+    IEnumerator StartInteractWithFlowers() {
         isInteracting = true;
         StopAgent();
 
@@ -104,15 +118,53 @@ public class PlayerController : MonoBehaviour {
             //flower.Die();
         }
 
-        yield return new WaitForSeconds(interactionTime);
-        Debug.Log("I completed my interaction.");
+        yield return new WaitForSeconds(flowerInteractionTime);
+        Debug.Log("I completed my flower interaction.");
+        isInteracting = false;
+        ReleaseAgent();
+    }
+
+    void FindInteractableGraves() {
+        float distance = 0f;
+
+        interactableGraves = new List<GameObject>();
+
+        foreach (var grave in GameManager.instance.allGraves)
+        {
+            distance = Vector3.Distance(transform.position, grave.transform.position);
+
+            if (distance <= graveInteractRange)
+            {
+                interactableGraves.Add(grave);
+            }
+        }
+    }
+
+    IEnumerator StartInteractWithGraves()
+    {
+        isInteracting = true;
+        StopAgent();
+
+        //anim.Start(graveInteractAnimation);
+
+        foreach (var graves in interactableGraves)
+        {
+            Debug.Log("Spawn skeleton from: " + graves.name);
+            //FX.Play(skeletonSpawn);
+        }
+
+        yield return new WaitForSeconds(graveInteractionTime);
+        Debug.Log("I completed my grave interaction.");
         isInteracting = false;
         ReleaseAgent();
     }
 
     void OnDrawGizmos() {
         Gizmos.color = new Color(1, 0, 0, 1f);
-        Gizmos.DrawWireSphere(transform.position, interactRange);
+        Gizmos.DrawWireSphere(transform.position, flowerInteractRange);
+
+        Gizmos.color = new Color(0, 1, 0, 1f);
+        Gizmos.DrawWireSphere(transform.position, graveInteractRange);
     }
 
     void OnMouseClick() {

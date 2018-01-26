@@ -6,6 +6,7 @@ TagManager:
   tags:
   - target
   - Flower
+  - Grave
   layers:
   - Default
   - TransparentFX
