@@ -143,9 +143,11 @@ public class SkeletonAI : MonoBehaviour {
 
     IEnumerator BornAnimation() {
         isBorning = true;
+        StopAgent();
         Debug.Log("I'm borning: " + this.name);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(AnimationDatas.instance.GetAnimationLength(AnimationDatas.AnimationStates.Born));
         Debug.Log("I borned: " + this.name);
+        ReleaseAgent();
         isBorning = false;
     }
 

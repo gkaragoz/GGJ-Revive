@@ -37,7 +37,7 @@ public class AnimationDatas : MonoBehaviour{
         }
     }
 
-    float GetAnimationLength(AnimationStates state) {
+    public float GetAnimationLength(AnimationStates state) {
         return animationDatas.Where(clip => clip.state == state).SingleOrDefault().animLength;
     }
 
