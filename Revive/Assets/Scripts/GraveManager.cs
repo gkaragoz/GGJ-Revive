@@ -8,6 +8,7 @@ public class GraveManager : MonoBehaviour {
     public float remainingRebornTime = 0f;
     public bool isDeath = false;
 
+    public GameObject spawnPoint;
     public SkeletonAI skeletonAIPrefab;
 
     void Awake()
@@ -43,7 +44,7 @@ public class GraveManager : MonoBehaviour {
     }
 
     void InstantiateSkeleton(SkeletonAI.Team team) {
-        SkeletonAI skeleton = Instantiate(skeletonAIPrefab, transform.position, Quaternion.identity).GetComponent<SkeletonAI>();
+        SkeletonAI skeleton = Instantiate(skeletonAIPrefab, spawnPoint.transform.position, Quaternion.identity).GetComponent<SkeletonAI>();
         skeleton.SetTeam(team);
         GameManager.instance.allSkeletons.Add(skeleton);
     }

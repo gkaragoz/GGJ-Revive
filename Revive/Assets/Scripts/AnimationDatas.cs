@@ -30,10 +30,8 @@ public class AnimationDatas : MonoBehaviour{
     }
 
     void Update() {
-        foreach (var animationData in animationDatas)
-        {
+        foreach (var animationData in animationDatas) {
             animationData.animLength = animationData.clip.length;
-            Debug.Log("Running");
         }
     }
 

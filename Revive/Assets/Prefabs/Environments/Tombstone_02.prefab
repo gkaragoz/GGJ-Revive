@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 23760632180358708}
   m_Layer: 0
   m_Name: Tombstone_02
-  m_TagString: Grave
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
