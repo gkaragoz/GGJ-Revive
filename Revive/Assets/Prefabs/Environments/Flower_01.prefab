@@ -56,6 +56,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4266929946966630}
   - component: {fileID: 114639373823952270}
+  - component: {fileID: 114692609482675976}
   m_Layer: 0
   m_Name: Flower_01
   m_TagString: Flower
@@ -99,9 +100,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1695269881472116}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 33.494247, y: -7.0838625e-16, z: 31.902878}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 30.46, y: 0, z: 28.42}
+  m_LocalScale: {x: 0.3785718, y: 0.3785718, z: 0.3785718}
   m_Children:
   - {fileID: 4864297472771746}
   - {fileID: 4177505630592872}
@@ -267,11 +268,24 @@ MonoBehaviour:
   remainingRebornTime: 0
   isDeath: 0
   isTurning: 0
-  isLive: 1
   deathFlowerPrefab: {fileID: 4177505630592872}
   liveFlowerPrefab: {fileID: 4340823658486746}
   dieEffect: {fileID: 198945944356675532}
   effectDistance: 1
+--- !u!114 &114692609482675976
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1695269881472116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8929f858bb374a4c86f556bcaec2e15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  size: {x: 0.3785718, y: 0.3785718, z: 0.3785718}
+  maxSize: 0.4
+  minSize: 0.1
 --- !u!198 &198945944356675532
 ParticleSystem:
   m_ObjectHideFlags: 1
