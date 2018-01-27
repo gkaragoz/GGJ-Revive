@@ -79,18 +79,15 @@ public class OpponentAI : MonoBehaviour {
     }
 
     void Interact() {
-        Debug.Log("Interaction with: " + target.name);
         if (target == null)
             return;
 
         isInteracting = true;
 
         if (target.tag == "Flower") {
-            Debug.Log("I'm gonna interact with flower: " + target.name);
             FindInteractableFlowers();
             StartCoroutine(InteractFlower(target));
         } else if (target.tag == "Grave") {
-            Debug.Log("I'm gonna interact with grave: " + target.name);
             StartCoroutine(InteractGrave(target));
         }
 

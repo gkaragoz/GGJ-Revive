@@ -37,15 +37,14 @@ public class SkeletonAI : MonoBehaviour {
     public Transform necromancerTarget;
     public Transform healthBarObj;
 
+    private Animator anim;
+
     public float Health {
         get { return currentHealth; }
         set {
             currentHealth = value;
             if (currentHealth <= 0) {
-                isDeath = true;
-                maxHealth = 0;
-                Debug.Log("Die: " + gameObject.name);
-                StopAgent();
+                Die();
             }
 
             SetHealthUIBar();
@@ -58,7 +57,7 @@ public class SkeletonAI : MonoBehaviour {
         agent = GetComponent<NavMeshAgent>();
 
         currentHealth = maxHealth;
-
+        anim = GetComponent<Animator>();
         StartCoroutine(BornAnimation());
     }
 
@@ -79,32 +78,35 @@ public class SkeletonAI : MonoBehaviour {
         SkeletonAI skeleton = GetClosestSkeleton();
         if (skeleton == null) {
             SetTarget(necromancerTarget);
+        } else if (isAttacking == false && HasTargetReached(skeleton.transform) == true) {
+            StartCoroutine(Attack(skeleton));
+        } else if (isAttacking == false && skeleton.isDeath == false && HasTargetReached(skeleton.transform) == false) {
+            SetTarget(skeleton.transform);
         } else {
-            if (isAttacking == false && HasTargetReached(skeleton.transform) == true) {
-                StartCoroutine(Attack(skeleton));
-            } else if (skeleton.isDeath == false) {
-                SetTarget(skeleton.transform);
-            } else {
-                SetTarget(necromancerTarget);
-            }
+            SetTarget(necromancerTarget);
         }
 
-        if (isBorning == false) {
+        if (isBorning == false && isAttacking == false) {
+            anim.SetBool("Walk", true);
             agent.SetDestination(target.position);
         }
     }
 
     IEnumerator Attack(SkeletonAI skeleton) {
+        anim.SetBool("Walk", false);
         isAttacking = true;
+        anim.SetBool("isAttacking", isAttacking);
         StopAgent();
-
+        
         while (skeleton.isDeath == false) {
+            anim.SetTrigger("Attack");
             yield return new WaitForSeconds(attackSpeed);
             StartCoroutine(skeleton.HitDamage(attackDamage));
         }
 
         ReleaseAgent();
         isAttacking = false;
+        anim.SetBool("isAttacking", isAttacking);
     }
 
     IEnumerator HitDamage(float amount) {
@@ -187,6 +189,17 @@ public class SkeletonAI : MonoBehaviour {
     void SetHealthUIBar() {
         float mappedValue = Utility.Map(Health, 0, maxHealth, 0, 1);
         healthBarObj.localScale = new Vector3(0.1f, 0.1f, mappedValue);
+    }
+
+    void Die() {
+        isDeath = true;
+        isBorning = false;
+        isAttacking = false;
+        maxHealth = 0;
+        anim.SetTrigger("Die");
+        anim.SetBool("isAttacking", isAttacking);
+        anim.SetBool("Walk", false);
+        StopAgent();
     }
 
 }

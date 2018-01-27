@@ -15,7 +15,6 @@ public class FlowerManager : MonoBehaviour {
 	public float effectDistance;
 
     private MeshRenderer flower;
-	private GameObject soul;
 
     void Awake() {
         flower = GetComponent<MeshRenderer>();
