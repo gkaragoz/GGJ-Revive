@@ -62,8 +62,6 @@ public class SkeletonAI : MonoBehaviour {
     }
 
     void Update() {
-        FixHealthUIBarRotation();
-
         //search for closest skeleton
         //if there is no skeleton than settarget necromancer
         //if it finds closest skeleton
@@ -74,6 +72,8 @@ public class SkeletonAI : MonoBehaviour {
 
         if (isDeath)
             return;
+
+        FixHealthUIBarRotation();
 
         SkeletonAI skeleton = GetClosestSkeleton();
         if (skeleton == null) {
@@ -202,7 +202,7 @@ public class SkeletonAI : MonoBehaviour {
         anim.SetBool("isAttacking", isAttacking);
         anim.SetBool("Walk", false);
         Destroy(agent);
-        Destroy(healthBarObj);
+        Destroy(healthBarObj.gameObject);
         StopAgent();
     }
 
