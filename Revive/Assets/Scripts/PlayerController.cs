@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour {
 
     private NavMeshAgent agent;
     private List<FlowerManager> interactableFlowers = new List<FlowerManager>();
-    private List<GameObject> interactableGraves = new List<GameObject>();
+    private List<GraveManager> interactableGraves = new List<GraveManager>();
 
     void Start () {
         GetReferences();
@@ -126,7 +126,7 @@ public class PlayerController : MonoBehaviour {
     void FindInteractableGraves() {
         float distance = 0f;
 
-        interactableGraves = new List<GameObject>();
+        interactableGraves = new List<GraveManager>();
 
         foreach (var grave in GameManager.instance.allGraves)
         {
@@ -149,7 +149,7 @@ public class PlayerController : MonoBehaviour {
         foreach (var grave in interactableGraves)
         {
             Debug.Log("Spawn skeleton from: " + grave.name);
-            GameManager.instance.InstantiateSkeleton(grave.transform, SkeletonAI.Team.Player);
+            grave.OnInteracted(SkeletonAI.Team.Player);
             //FX.Play(skeletonSpawn);
         }
 

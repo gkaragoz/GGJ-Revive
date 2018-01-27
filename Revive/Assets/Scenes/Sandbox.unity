@@ -1789,10 +1789,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allFlowers: []
   allGraves: []
+  allSkeletons: []
   player: {fileID: 0}
   opponent: {fileID: 0}
-  skeletonAIPrefab: {fileID: 114320147127307844, guid: 7be0c86d35344eb4a886f68560267bdc,
-    type: 2}
 --- !u!4 &1076150897 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4817215303049532, guid: 5498d1acc2856ba44905c986b4ae9df0,

@@ -95,7 +95,7 @@ public class OpponentAI : MonoBehaviour {
         //anim.Start(graveInteractAnimation);
 
         Debug.Log("Spawn skeleton from: " + target.name);
-        GameManager.instance.InstantiateSkeleton(target.transform, SkeletonAI.Team.Enemy);
+        target.GetComponent<GraveManager>().OnInteracted(SkeletonAI.Team.Enemy);
         //FX.Play(skeletonSpawn);
 
         yield return new WaitForSeconds(graveInteractionTime);
@@ -157,11 +157,11 @@ public class OpponentAI : MonoBehaviour {
         agent.isStopped = true;
     }
 
-    GameObject GetClosestGrave() {
-        GameObject bestTarget = null;
+    GraveManager GetClosestGrave() {
+        GraveManager bestTarget = null;
         float closestDistanceSqr = Mathf.Infinity;
         Vector3 currentPosition = transform.position;
-        foreach (GameObject potentialTarget in GameManager.instance.allGraves) {
+        foreach (GraveManager potentialTarget in GameManager.instance.allGraves) {
             Vector3 directionToTarget = potentialTarget.transform.position - currentPosition;
             float dSqrToTarget = directionToTarget.sqrMagnitude;
 

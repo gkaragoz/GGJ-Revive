@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4462279713888432}
   - component: {fileID: 33794763771909838}
   - component: {fileID: 23563388669849630}
+  - component: {fileID: 114526593001794190}
   m_Layer: 0
   m_Name: Tombstone
   m_TagString: Grave
@@ -82,3 +83,19 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1435722028907160}
   m_Mesh: {fileID: 4300000, guid: 86c457bfa52b74646bad3aed54a2db92, type: 3}
+--- !u!114 &114526593001794190
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1435722028907160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3247c42b1a7a68e48a2d1d85cf42ddb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rebornTime: 15
+  remainingRebornTime: 0
+  isDeath: 0
+  skeletonAIPrefab: {fileID: 114320147127307844, guid: 7be0c86d35344eb4a886f68560267bdc,
+    type: 2}

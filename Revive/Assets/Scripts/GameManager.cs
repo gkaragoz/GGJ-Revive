@@ -6,14 +6,12 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
 
     public List<FlowerManager> allFlowers = new List<FlowerManager>();
-    public List<GameObject> allGraves = new List<GameObject>();
+    public List<GraveManager> allGraves = new List<GraveManager>();
 
     public List<SkeletonAI> allSkeletons = new List<SkeletonAI>();
 
     public PlayerController player;
     public OpponentAI opponent;
-
-    public SkeletonAI skeletonAIPrefab;
 
     public static GameManager instance;
 
@@ -21,20 +19,18 @@ public class GameManager : MonoBehaviour {
         if (instance == null)
             instance = this;
 
-        GameObject [] allFlowersObjs = GameObject.FindGameObjectsWithTag("Flower");
+        GameObject[] allFlowersObjs = GameObject.FindGameObjectsWithTag("Flower");
         foreach (var flower in allFlowersObjs) {
             allFlowers.Add(flower.GetComponent<FlowerManager>());
         }
 
-        allGraves = GameObject.FindGameObjectsWithTag("Grave").ToList();
+        GameObject[] allGravesObjs = GameObject.FindGameObjectsWithTag("Grave");
+        Debug.Log(allGravesObjs.Length);
+        foreach (var grave in allGravesObjs) {
+            allGraves.Add(grave.GetComponent<GraveManager>());
+        }
 
         player = GameObject.Find("Player").GetComponent<PlayerController>();
         opponent = GameObject.Find("Opponent").GetComponent<OpponentAI>();
-    }
-
-    public void InstantiateSkeleton(Transform grave, SkeletonAI.Team team) {
-        SkeletonAI skeleton = Instantiate(skeletonAIPrefab, grave.position, Quaternion.identity).GetComponent<SkeletonAI>();
-        skeleton.SetTeam(team);
-        allSkeletons.Add(skeleton);
     }
 }
