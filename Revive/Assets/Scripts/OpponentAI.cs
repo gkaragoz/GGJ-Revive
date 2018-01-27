@@ -31,6 +31,9 @@ public class OpponentAI : MonoBehaviour {
     }
 	
 	void Update () {
+        if (overrideAgentValues)
+            SetAgent();
+
 		if (target == null) {
             //if no interaction
             //if have not any skeleton alive.
@@ -66,6 +69,14 @@ public class OpponentAI : MonoBehaviour {
             }
         }
 	}
+
+    void SetAgent() {
+        agent.speed = movementSpeed;
+        agent.angularSpeed = angularSpeed;
+        agent.acceleration = acceleration;
+        agent.stoppingDistance = stoppingDistance;
+        agent.autoBraking = autoBraking;
+    }
 
     void Interact() {
         Debug.Log("Interaction with: " + target.name);

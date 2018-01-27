@@ -139,18 +139,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInteracting: 0
   overrideAgentValues: 1
-  graveInteractionTime: 1
-  graveInteractRange: 1
-  flowerInteractionTime: 2
-  flowerInteractRange: 2
-  movementSpeed: 2.5
+  graveInteractionTime: 3
+  graveInteractRange: 2.2
+  flowerInteractionTime: 3
+  flowerInteractRange: 2.5
+  movementSpeed: 4
   angularSpeed: 360
   acceleration: 8
-  stoppingDistance: 0
+  stoppingDistance: 2
   autoBraking: 1
   target: {fileID: 0}
-  closestGrave: {fileID: 0}
-  closestFlower: {fileID: 0}
 --- !u!195 &195473859998926112
 NavMeshAgent:
   m_ObjectHideFlags: 1
