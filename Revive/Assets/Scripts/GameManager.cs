@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour {
 
     public List<FlowerManager> allFlowers = new List<FlowerManager>();
     public List<GameObject> allGraves = new List<GameObject>();
+
     public List<SkeletonAI> allSkeletons = new List<SkeletonAI>();
 
     public PlayerController player;
