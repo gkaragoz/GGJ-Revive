@@ -9,9 +9,9 @@ public class FlowerManager : MonoBehaviour {
     public float remainingRebornTime = 0f;
     public bool isDeath = false;
     public bool isTurning = false;
-    public bool isGreen = true;
-    public Material darkFlower;
-    public Material greenFlower;
+    public bool isLive = true;
+    public Transform deathFlowerPrefab;
+    public Transform liveFlowerPrefab;
 	public ParticleSystem dieEffect;
 	public float effectDistance;
 
@@ -20,7 +20,7 @@ public class FlowerManager : MonoBehaviour {
 
     void Awake() {
         flower = GetComponent<MeshRenderer>();
-		dieEffect = transform.Find ("Flower Die Particle Effect").GetComponent<ParticleSystem> ();
+		dieEffect = transform.Find("Flower Die Particle Effect").GetComponent<ParticleSystem>();
 		dieEffect.Stop ();
 
         remainingRebornTime = rebornTime;
@@ -32,21 +32,21 @@ public class FlowerManager : MonoBehaviour {
 
             if (remainingRebornTime <= 0) {
                 remainingRebornTime = rebornTime;
-                GrowGreen();
+                Grow();
             }
         }
     }
 
 	public void OnInteracted(Transform interactor) {
         if (isTurning == false) {
-            if (isGreen == true) {
+            if (isLive == true) {
 				PlayDeathParticleAnimation (interactor);
-                BecomeDark();
+                Die();
             }
         }
     }
 
-    void BecomeDark() {
+    void Die() {
         isTurning = true;
         LeanTween.scale(this.gameObject, Vector3.zero, 2f).setEaseOutQuad().setOnComplete(OnBecomeDarkComplete);
     }
@@ -61,31 +61,40 @@ public class FlowerManager : MonoBehaviour {
 	}
 
     void OnBecomeDarkComplete() {
-        LeanTween.scale(this.gameObject, Vector3.one, 2f).setEaseOutQuad().setOnComplete(OnFinishDarkTurning);
-        flower.material = darkFlower;
-        isGreen = false;
+        LeanTween.scale(this.gameObject, Vector3.one, 2f).setEaseOutQuad().setOnComplete(OnFinishTurningToDeath);
+        ActiveDeathFlower();
     }
 
-    void OnFinishDarkTurning() {
+    void OnFinishTurningToDeath() {
         isTurning = false;
         isDeath = true;
     }
 
-    void GrowGreen() {
+    void Grow() {
         isTurning = true;
         LeanTween.scale(this.gameObject, Vector3.zero, 2f).setEaseOutQuad().setOnComplete(OnGrowGreenComplete);
     }
 
     void OnGrowGreenComplete() {
-        LeanTween.scale(this.gameObject, Vector3.one, 2f).setEaseOutQuad().setOnComplete(OnFinishGreenTurning);
-        flower.material = greenFlower;
-        isGreen = true;
+        LeanTween.scale(this.gameObject, Vector3.one, 2f).setEaseOutQuad().setOnComplete(OnFinishTurningToLive);
+        ActiveLiveFlower();
     }
 
-    void OnFinishGreenTurning()
-    {
+    void OnFinishTurningToLive() {
         isTurning = false;
         isDeath = false;
+    }
+
+    void ActiveDeathFlower() {
+        deathFlowerPrefab.gameObject.SetActive(true);
+        liveFlowerPrefab.gameObject.SetActive(false);
+        isLive = false;
+    }
+
+    void ActiveLiveFlower() {
+        deathFlowerPrefab.gameObject.SetActive(false);
+        liveFlowerPrefab.gameObject.SetActive(true);
+        isLive = true;
     }
 
 }

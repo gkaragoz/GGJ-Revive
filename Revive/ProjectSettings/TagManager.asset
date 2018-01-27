@@ -5,9 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - target
-  - Flower
   - Grave
   - Opponent
+  - Flower
   layers:
   - Default
   - TransparentFX
