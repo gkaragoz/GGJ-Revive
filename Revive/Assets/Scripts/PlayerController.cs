@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour {
     public Transform target;
 
     private NavMeshAgent agent;
-    private List<GameObject> interactableFlowers = new List<GameObject>();
+    private List<FlowerManager> interactableFlowers = new List<FlowerManager>();
     private List<GameObject> interactableGraves = new List<GameObject>();
 
     void Start () {
@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour {
     void FindInteractableFlowers() {
         float distance = 0f;
 
-        interactableFlowers = new List<GameObject>();
+        interactableFlowers = new List<FlowerManager>();
 
         foreach (var flower in GameManager.instance.allFlowers) {
             distance = Vector3.Distance(transform.position, flower.transform.position);
@@ -114,8 +114,7 @@ public class PlayerController : MonoBehaviour {
         //anim.Start(flowerInteractAnimation);
 
         foreach (var flower in interactableFlowers) {
-            Debug.Log("Go Die: " + flower.name);
-            //flower.Die();
+            flower.OnInteracted();
         }
 
         yield return new WaitForSeconds(flowerInteractionTime);

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
-    public List<GameObject> allFlowers = new List<GameObject>();
+    public List<FlowerManager> allFlowers = new List<FlowerManager>();
     public List<GameObject> allGraves = new List<GameObject>();
 
     public static GameManager instance;
@@ -14,7 +14,11 @@ public class GameManager : MonoBehaviour {
         if (instance == null)
             instance = this;
 
-        allFlowers = GameObject.FindGameObjectsWithTag("Flower").ToList();
+        GameObject [] allFlowersObjs = GameObject.FindGameObjectsWithTag("Flower");
+        foreach (var flower in allFlowersObjs) {
+            allFlowers.Add(flower.GetComponent<FlowerManager>());
+        }
+
         allGraves = GameObject.FindGameObjectsWithTag("Grave").ToList();
     }
 }
