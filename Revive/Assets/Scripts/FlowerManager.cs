@@ -41,8 +41,6 @@ public class FlowerManager : MonoBehaviour {
             if (isGreen == true) {
 				PlayDeathParticleAnimation (interactor);
                 BecomeDark();
-            } else {
-                GrowGreen();
             }
         }
     }
