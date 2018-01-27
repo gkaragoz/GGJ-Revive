@@ -72,6 +72,8 @@ public class SkeletonAI : MonoBehaviour {
         if (isDeath)
             return;
 
+        LookAtCamera(txtStats.transform.parent);
+
         SkeletonAI skeleton = GetClosestSkeleton();
         if (skeleton == null) {
             SetTarget(necromancerTarget);
@@ -90,6 +92,12 @@ public class SkeletonAI : MonoBehaviour {
     }
 
     void SetStatText() {
+        if (team == Team.Player) {
+            txtStats.color = new Color(23, 179, 210);
+        } else {
+            txtStats.color = new Color(210, 89, 23);
+        }
+
         txtStats.text = attackDamage + " + " + upgradeAmount;
     }
 
@@ -183,6 +191,10 @@ public class SkeletonAI : MonoBehaviour {
         } else if (team == Team.Player) {
             necromancerTarget = GameManager.instance.opponent.transform;
         }
+    }
+
+    void LookAtCamera(Transform obj) {
+        obj.LookAt(Camera.main.transform);
     }
 
     void Die() {
