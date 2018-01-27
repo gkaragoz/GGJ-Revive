@@ -13,6 +13,7 @@ public class FlowerManager : MonoBehaviour {
     public Material darkFlower;
     public Material greenFlower;
 	public ParticleSystem dieEffect;
+	public float effectDistance;
 
     private MeshRenderer flower;
 	private GameObject soul;
@@ -52,6 +53,10 @@ public class FlowerManager : MonoBehaviour {
 
 	void PlayDeathParticleAnimation(Transform interactor){
 		dieEffect.gameObject.transform.LookAt (interactor);
+		ParticleSystem.MainModule main = dieEffect.main;
+		float distance = Vector3.Distance (interactor.position, transform.position);
+		main.duration = effectDistance * distance * distance * distance * distance;
+		//dieEffect.main = main;
 		dieEffect.Play ();
 	}
 
