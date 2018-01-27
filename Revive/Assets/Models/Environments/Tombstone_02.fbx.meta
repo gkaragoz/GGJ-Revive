@@ -1,16 +1,22 @@
 fileFormatVersion: 2
-guid: 86c457bfa52b74646bad3aed54a2db92
-timeCreated: 1517011133
+guid: 30a03ded2cbe104438ef4d4714a5117d
+timeCreated: 1517054905
 licenseType: Pro
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2100000: No Name
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: tombstone
+    100000: tomb2
+    100002: //RootNode
+    400000: tomb2
+    400002: //RootNode
+    2100000: Material.001
+    2100002: No Name
+    2300000: tomb2
+    2300002: //RootNode
+    3300000: tomb2
+    3300002: //RootNode
+    4300000: tas2
+    4300002: tomb2
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -41,7 +47,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 100
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importVisibility: 1

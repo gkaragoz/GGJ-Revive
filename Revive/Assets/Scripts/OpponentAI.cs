@@ -23,17 +23,17 @@ public class OpponentAI : MonoBehaviour {
     [HideInInspector]
     public Transform target;
 
+    private List<FlowerManager> interactableFlowers = new List<FlowerManager>();
     private NavMeshAgent agent;
 
     void Awake() {
         agent = GetComponent<NavMeshAgent>();
     }
-
-    void Start () {
-        InvokeRepeating("GetClosestFlower", 0, 1f);
-	}
 	
 	void Update () {
+        if (overrideAgentValues)
+            SetAgent();
+
 		if (target == null) {
             //if no interaction
             //if have not any skeleton alive.
@@ -50,14 +50,14 @@ public class OpponentAI : MonoBehaviour {
 
             if (isInteracting == false) {
                 if (HasAnyLiveSkeletons() == false) {
-                    Transform grave = GetClosestGrave().transform;
+                    Transform grave = GetClosestAvailableGrave().transform;
                     SetTarget(grave);
                 } else {
                     if (Random.Range(0, 1f) < 0.5f) { //50% percentage of chance.  
-                        Transform grave = GetClosestGrave().transform;
+                        Transform grave = GetClosestAvailableGrave().transform;
                         SetTarget(grave);
                     } else {
-                        Transform flower = GetClosestFlower().transform;
+                        Transform flower = GetClosestAvailableFlower().transform;
                         SetTarget(flower);
                     }
                 }
@@ -70,6 +70,14 @@ public class OpponentAI : MonoBehaviour {
         }
 	}
 
+    void SetAgent() {
+        agent.speed = movementSpeed;
+        agent.angularSpeed = angularSpeed;
+        agent.acceleration = acceleration;
+        agent.stoppingDistance = stoppingDistance;
+        agent.autoBraking = autoBraking;
+    }
+
     void Interact() {
         Debug.Log("Interaction with: " + target.name);
         if (target == null)
@@ -79,6 +87,7 @@ public class OpponentAI : MonoBehaviour {
 
         if (target.tag == "Flower") {
             Debug.Log("I'm gonna interact with flower: " + target.name);
+            FindInteractableFlowers();
             StartCoroutine(InteractFlower(target));
         } else if (target.tag == "Grave") {
             Debug.Log("I'm gonna interact with grave: " + target.name);
@@ -94,22 +103,41 @@ public class OpponentAI : MonoBehaviour {
 
         //anim.Start(graveInteractAnimation);
 
-        Debug.Log("Spawn skeleton from: " + target.name);
-        GameManager.instance.InstantiateSkeleton(target.transform, SkeletonAI.Team.Enemy);
+        target.GetComponent<GraveManager>().OnInteracted(SkeletonAI.Team.Enemy);
         //FX.Play(skeletonSpawn);
 
         yield return new WaitForSeconds(graveInteractionTime);
-        Debug.Log("I completed my grave interaction.");
         isInteracting = false;
         ReleaseAgent();
     }
 
+    void FindInteractableFlowers() {
+        float distance = 0f;
+
+        interactableFlowers = new List<FlowerManager>();
+
+        foreach (var flower in GameManager.instance.allFlowers) {
+            distance = Vector3.Distance(transform.position, flower.transform.position);
+
+            if (distance <= flowerInteractRange) {
+                interactableFlowers.Add(flower);
+            }
+        }
+    }
+
     IEnumerator InteractFlower(Transform target) {
+        isInteracting = true;
+        StopAgent();
+
+        //anim.Start(flowerInteractAnimation);
+
+        foreach (var flower in interactableFlowers) {
+            flower.OnInteracted(transform);
+        }
+
         yield return new WaitForSeconds(flowerInteractionTime);
-
-        Debug.Log("Interaction with flower: " + target.name);
-
         isInteracting = false;
+        ReleaseAgent();
     }
 
     bool HasArrivedTarget(Transform target) {
@@ -157,11 +185,14 @@ public class OpponentAI : MonoBehaviour {
         agent.isStopped = true;
     }
 
-    GameObject GetClosestGrave() {
-        GameObject bestTarget = null;
+    GraveManager GetClosestAvailableGrave() {
+        GraveManager bestTarget = null;
         float closestDistanceSqr = Mathf.Infinity;
         Vector3 currentPosition = transform.position;
-        foreach (GameObject potentialTarget in GameManager.instance.allGraves) {
+        foreach (GraveManager potentialTarget in GameManager.instance.allGraves) {
+            if (potentialTarget.isDeath)
+                continue;
+
             Vector3 directionToTarget = potentialTarget.transform.position - currentPosition;
             float dSqrToTarget = directionToTarget.sqrMagnitude;
 
@@ -173,11 +204,14 @@ public class OpponentAI : MonoBehaviour {
         return bestTarget;
     }
 
-    FlowerManager GetClosestFlower() {
+    FlowerManager GetClosestAvailableFlower() {
         FlowerManager bestTarget = null;
         float closestDistanceSqr = Mathf.Infinity;
         Vector3 currentPosition = transform.position;
         foreach (FlowerManager potentialTarget in GameManager.instance.allFlowers) {
+            if (potentialTarget.isDeath)
+                continue;
+
             Vector3 directionToTarget = potentialTarget.transform.position - currentPosition;
             float dSqrToTarget = directionToTarget.sqrMagnitude;
 
@@ -187,5 +221,13 @@ public class OpponentAI : MonoBehaviour {
             }
         }
         return bestTarget;
+    }
+
+    void OnDrawGizmos() {
+        Gizmos.color = new Color(1, 0, 0, 1f);
+        Gizmos.DrawWireSphere(transform.position, flowerInteractRange);
+
+        Gizmos.color = new Color(0, 1, 0, 1f);
+        Gizmos.DrawWireSphere(transform.position, graveInteractRange);
     }
 }

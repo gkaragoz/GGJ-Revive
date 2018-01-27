@@ -80,13 +80,12 @@ public class FlowerManager : MonoBehaviour {
         LeanTween.scale(this.gameObject, Vector3.one, 2f).setEaseOutQuad().setOnComplete(OnFinishGreenTurning);
         flower.material = greenFlower;
         isGreen = true;
-        isDeath = false;
     }
 
     void OnFinishGreenTurning()
     {
         isTurning = false;
-        isDeath = true;
+        isDeath = false;
     }
 
 }
