@@ -205,9 +205,9 @@ public class SkeletonAI : MonoBehaviour {
         anim.SetTrigger("Die");
         anim.SetBool("isAttacking", isAttacking);
         anim.SetBool("Walk", false);
+        StopAgent();
         Destroy(agent);
         Destroy(txtStats.transform.parent.gameObject);
-        StopAgent();
     }
 
 }
