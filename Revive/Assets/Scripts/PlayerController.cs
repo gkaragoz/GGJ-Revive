@@ -41,7 +41,6 @@ public class PlayerController : MonoBehaviour {
             FindInteractableFlowers();
 
             if (interactableFlowers.Count > 0) {
-                Debug.Log("I'm gonna interact with flowers: " + interactableFlowers.Count);
                 StartCoroutine(StartInteractWithFlowers());
             }
         }
@@ -50,9 +49,7 @@ public class PlayerController : MonoBehaviour {
         {
             FindInteractableGraves();
 
-            if (interactableGraves.Count > 0)
-            {
-                Debug.Log("I'm gonna interact with graves: " + interactableGraves.Count);
+            if (interactableGraves.Count > 0) {
                 StartCoroutine(StartInteractWithGraves());
             }
         }
@@ -118,7 +115,6 @@ public class PlayerController : MonoBehaviour {
         }
 
         yield return new WaitForSeconds(flowerInteractionTime);
-        Debug.Log("I completed my flower interaction.");
         isInteracting = false;
         ReleaseAgent();
     }
@@ -148,13 +144,11 @@ public class PlayerController : MonoBehaviour {
 
         foreach (var grave in interactableGraves)
         {
-            Debug.Log("Spawn skeleton from: " + grave.name);
             grave.OnInteracted(SkeletonAI.Team.Player);
             //FX.Play(skeletonSpawn);
         }
 
         yield return new WaitForSeconds(graveInteractionTime);
-        Debug.Log("I completed my grave interaction.");
         isInteracting = false;
         ReleaseAgent();
     }
