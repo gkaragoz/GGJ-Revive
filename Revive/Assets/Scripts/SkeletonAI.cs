@@ -25,6 +25,7 @@ public class SkeletonAI : MonoBehaviour {
     public float attackSpeed = 2f;
     public float attackRange = 2f;
     public float attackDamage = 2f;
+    public float upgradeAmount = 0f;
 
     [Header("Movement Values")]
     public float movementSpeed = 2.5f;
@@ -35,7 +36,7 @@ public class SkeletonAI : MonoBehaviour {
     [HideInInspector]
     public Transform target;
     public Transform necromancerTarget;
-    public Transform healthBarObj;
+    public TextMesh txtStats;
 
     private Animator anim;
 
@@ -46,8 +47,6 @@ public class SkeletonAI : MonoBehaviour {
             if (currentHealth <= 0) {
                 Die();
             }
-
-            SetHealthUIBar();
         }
     }
 
@@ -73,8 +72,6 @@ public class SkeletonAI : MonoBehaviour {
         if (isDeath)
             return;
 
-        FixHealthUIBarRotation();
-
         SkeletonAI skeleton = GetClosestSkeleton();
         if (skeleton == null) {
             SetTarget(necromancerTarget);
@@ -90,6 +87,10 @@ public class SkeletonAI : MonoBehaviour {
             anim.SetBool("Walk", true);
             agent.SetDestination(target.position);
         }
+    }
+
+    void SetStatText() {
+        txtStats.text = attackDamage + " + " + upgradeAmount;
     }
 
     IEnumerator Attack(SkeletonAI skeleton) {
@@ -184,15 +185,6 @@ public class SkeletonAI : MonoBehaviour {
         }
     }
 
-    void FixHealthUIBarRotation() {
-        healthBarObj.localRotation = Quaternion.Euler(0, -transform.rotation.eulerAngles.y + 90, 0);
-    }
-
-    void SetHealthUIBar() {
-        float mappedValue = Utility.Map(Health, 0, maxHealth, 0, 1);
-        healthBarObj.localScale = new Vector3(0.1f, 0.1f, mappedValue);
-    }
-
     void Die() {
         isDeath = true;
         isBorning = false;
@@ -202,7 +194,7 @@ public class SkeletonAI : MonoBehaviour {
         anim.SetBool("isAttacking", isAttacking);
         anim.SetBool("Walk", false);
         Destroy(agent);
-        Destroy(healthBarObj.gameObject);
+        Destroy(txtStats.transform.parent.gameObject);
         StopAgent();
     }
 
