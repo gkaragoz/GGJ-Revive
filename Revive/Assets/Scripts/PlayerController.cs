@@ -146,9 +146,10 @@ public class PlayerController : MonoBehaviour {
 
         //anim.Start(graveInteractAnimation);
 
-        foreach (var graves in interactableGraves)
+        foreach (var grave in interactableGraves)
         {
-            Debug.Log("Spawn skeleton from: " + graves.name);
+            Debug.Log("Spawn skeleton from: " + grave.name);
+            GameManager.instance.InstantiateSkeleton(grave.transform, SkeletonAI.Team.Player);
             //FX.Play(skeletonSpawn);
         }
 
