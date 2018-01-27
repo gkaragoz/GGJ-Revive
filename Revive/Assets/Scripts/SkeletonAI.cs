@@ -20,6 +20,7 @@ public class SkeletonAI : MonoBehaviour {
 
     [Header("Values")]
     public float health = 10f;
+    public float currentHealth = 0f;
     public float attackSpeed = 2f;
     public float attackRange = 2f;
     public float movementSpeed = 2.5f;
@@ -30,26 +31,44 @@ public class SkeletonAI : MonoBehaviour {
     [HideInInspector]
     public Transform target;
     public Transform necromancerTarget;
+    public Transform healthBarObj;
+
+    public float Health {
+        get { return health; }
+        set {
+            health = value;
+            if (health <= 0) {
+                health = 0;
+                Debug.Log("Die: " + gameObject.name);
+                StopAgent();
+            }
+
+            SetHealthUIBar();
+        }
+    }
 
     private NavMeshAgent agent;
 
     void Awake() {
         agent = GetComponent<NavMeshAgent>();
 
+        currentHealth = health;
+
         StartCoroutine(BornAnimation());
     }
 
     void Update() {
+        FixHealthUIBarRotation();
+
         //search for closest skeleton
         //if there is no skeleton than settarget necromancer
         //if it finds closest skeleton
         //than go to that skeleton
 
         //if that skeleton reached enemy
-            //than attack it
+        //than attack it
 
         SkeletonAI skeleton = GetClosestSkeleton();
-        Debug.Log(skeleton);
         if (skeleton == null) {
             SetTarget(necromancerTarget);
         } else {
@@ -65,6 +84,14 @@ public class SkeletonAI : MonoBehaviour {
         this.team = team;
 
         SetNecromancerTarget();
+    }
+
+    void ReleaseAgent() {
+        agent.isStopped = false;
+    }
+
+    void StopAgent() {
+        agent.isStopped = true;
     }
 
     IEnumerator BornAnimation() {
@@ -106,6 +133,15 @@ public class SkeletonAI : MonoBehaviour {
         } else if (team == Team.Player) {
             necromancerTarget = GameManager.instance.opponent.transform;
         }
+    }
+
+    void FixHealthUIBarRotation() {
+        healthBarObj.localRotation = Quaternion.Euler(0, -transform.rotation.eulerAngles.y + 90, 0);
+    }
+
+    void SetHealthUIBar() {
+        float mappedValue = Utility.Map(currentHealth, 0, 1, 0, health);
+        healthBarObj.localScale = new Vector3(healthBarObj.localScale.x, healthBarObj.localScale.y, mappedValue);
     }
 
 }

@@ -25,7 +25,6 @@ public class GameManager : MonoBehaviour {
         }
 
         GameObject[] allGravesObjs = GameObject.FindGameObjectsWithTag("Grave");
-        Debug.Log(allGravesObjs.Length);
         foreach (var grave in allGravesObjs) {
             allGraves.Add(grave.GetComponent<GraveManager>());
         }
