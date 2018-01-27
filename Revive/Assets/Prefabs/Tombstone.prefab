@@ -97,5 +97,5 @@ MonoBehaviour:
   rebornTime: 15
   remainingRebornTime: 0
   isDeath: 0
-  skeletonAIPrefab: {fileID: 114320147127307844, guid: 7be0c86d35344eb4a886f68560267bdc,
+  skeletonAIPrefab: {fileID: 114513748937304990, guid: 7be0c86d35344eb4a886f68560267bdc,
     type: 2}
