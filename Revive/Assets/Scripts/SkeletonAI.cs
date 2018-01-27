@@ -13,16 +13,20 @@ public class SkeletonAI : MonoBehaviour {
 
     public bool isBorning = false;
     public bool isAttacking = false;
+    public bool isDeath = false;
 
     [Header("Settings")]
     public bool overrideAgentValues = true;
     public Team team;
 
-    [Header("Values")]
-    public float health = 10f;
+    [Header("Combat Values")]
+    public float maxHealth = 10f;
     public float currentHealth = 0f;
     public float attackSpeed = 2f;
     public float attackRange = 2f;
+    public float attackDamage = 2f;
+
+    [Header("Movement Values")]
     public float movementSpeed = 2.5f;
     public float angularSpeed = 360;
     public float acceleration = 8;
@@ -34,11 +38,12 @@ public class SkeletonAI : MonoBehaviour {
     public Transform healthBarObj;
 
     public float Health {
-        get { return health; }
+        get { return currentHealth; }
         set {
-            health = value;
-            if (health <= 0) {
-                health = 0;
+            currentHealth = value;
+            if (currentHealth <= 0) {
+                isDeath = true;
+                maxHealth = 0;
                 Debug.Log("Die: " + gameObject.name);
                 StopAgent();
             }
@@ -52,7 +57,7 @@ public class SkeletonAI : MonoBehaviour {
     void Awake() {
         agent = GetComponent<NavMeshAgent>();
 
-        currentHealth = health;
+        currentHealth = maxHealth;
 
         StartCoroutine(BornAnimation());
     }
@@ -68,16 +73,56 @@ public class SkeletonAI : MonoBehaviour {
         //if that skeleton reached enemy
         //than attack it
 
+        if (isDeath)
+            return;
+
         SkeletonAI skeleton = GetClosestSkeleton();
         if (skeleton == null) {
             SetTarget(necromancerTarget);
         } else {
-            SetTarget(skeleton.transform);
+            if (isAttacking == false && HasTargetReached(skeleton.transform) == true) {
+                StartCoroutine(Attack(skeleton));
+            } else if (skeleton.isDeath == false) {
+                SetTarget(skeleton.transform);
+            } else {
+                SetTarget(necromancerTarget);
+            }
         }
 
         if (isBorning == false) {
             agent.SetDestination(target.position);
         }
+    }
+
+    IEnumerator Attack(SkeletonAI skeleton) {
+        isAttacking = true;
+        StopAgent();
+
+        while (skeleton.isDeath == false) {
+            yield return new WaitForSeconds(attackSpeed);
+            StartCoroutine(skeleton.HitDamage(attackDamage));
+        }
+
+        ReleaseAgent();
+        isAttacking = false;
+    }
+
+    IEnumerator HitDamage(float amount) {
+        Health -= amount;
+        //Take hit animation.
+        yield return new WaitForSeconds(attackSpeed);
+    }
+
+    bool HasTargetReached(Transform target) {
+        if (target == null)
+            return false;
+
+        float distance = Vector3.Distance(transform.position, target.position);
+        if (distance <= attackRange){
+            return true;
+        }
+
+        return false;
     }
 
     public void SetTeam(Team team) {
@@ -140,8 +185,8 @@ public class SkeletonAI : MonoBehaviour {
     }
 
     void SetHealthUIBar() {
-        float mappedValue = Utility.Map(currentHealth, 0, 1, 0, health);
-        healthBarObj.localScale = new Vector3(healthBarObj.localScale.x, healthBarObj.localScale.y, mappedValue);
+        float mappedValue = Utility.Map(Health, 0, maxHealth, 0, 1);
+        healthBarObj.localScale = new Vector3(0.1f, 0.1f, mappedValue);
     }
 
 }
