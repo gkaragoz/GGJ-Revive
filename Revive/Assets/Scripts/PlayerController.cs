@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour {
         //anim.Start(flowerInteractAnimation);
 
         foreach (var flower in interactableFlowers) {
-            flower.OnInteracted();
+			flower.OnInteracted(transform);
         }
 
         yield return new WaitForSeconds(flowerInteractionTime);

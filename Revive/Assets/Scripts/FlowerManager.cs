@@ -9,16 +9,21 @@ public class FlowerManager : MonoBehaviour {
     public bool isGreen = true;
     public Material darkFlower;
     public Material greenFlower;
+	public ParticleSystem dieEffect;
 
     private MeshRenderer flower;
+	private GameObject soul;
 
     void Awake() {
         flower = GetComponent<MeshRenderer>();
+		dieEffect = transform.Find ("Flower Die Particle Effect").GetComponent<ParticleSystem> ();
+		dieEffect.Stop ();
     }
 
-    public void OnInteracted() {
+	public void OnInteracted(Transform interactor) {
         if (isTurning == false) {
             if (isGreen == true) {
+				PlayDeathParticleAnimation (interactor);
                 BecomeDark();
             } else {
                 GrowGreen();
@@ -30,6 +35,11 @@ public class FlowerManager : MonoBehaviour {
         isTurning = true;
         LeanTween.scale(this.gameObject, Vector3.zero, 2f).setEaseOutQuad().setOnComplete(OnBecomeDarkComplete);
     }
+
+	void PlayDeathParticleAnimation(Transform interactor){
+		dieEffect.gameObject.transform.LookAt (interactor);
+		dieEffect.Play ();
+	}
 
     void OnBecomeDarkComplete() {
         LeanTween.scale(this.gameObject, Vector3.one, 2f).setEaseOutQuad().setOnComplete(OnFinish);

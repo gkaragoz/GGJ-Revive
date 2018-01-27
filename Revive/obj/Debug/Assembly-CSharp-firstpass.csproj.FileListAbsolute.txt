@@ -1,5 +1,5 @@
-C:\Users\Gonca\Desktop\Revive\GGJ-Revive\Revive\Temp\bin\Debug\Assembly-CSharp.dll
-C:\Users\Gonca\Desktop\Revive\GGJ-Revive\Revive\Temp\bin\Debug\Assembly-CSharp.pdb
+C:\Users\Gonca\Desktop\Revive\GGJ-Revive\Revive\Temp\bin\Debug\Assembly-CSharp-firstpass.dll
+C:\Users\Gonca\Desktop\Revive\GGJ-Revive\Revive\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb
 C:\Users\Gonca\Desktop\Revive\GGJ-Revive\Revive\Temp\bin\Debug\nunit.framework.dll
 C:\Users\Gonca\Desktop\Revive\GGJ-Revive\Revive\Temp\bin\Debug\UnityEditor.Advertisements.dll
 C:\Users\Gonca\Desktop\Revive\GGJ-Revive\Revive\Temp\bin\Debug\UnityEditor.Analytics.dll
@@ -62,7 +62,6 @@ C:\Users\Gonca\Desktop\Revive\GGJ-Revive\Revive\Temp\bin\Debug\UnityEditor.Spati
 C:\Users\Gonca\Desktop\Revive\GGJ-Revive\Revive\Temp\bin\Debug\UnityEngine.SpatialTracking.xml
 C:\Users\Gonca\Desktop\Revive\GGJ-Revive\Revive\Temp\bin\Debug\UnityEditor.VR.xml
 C:\Users\Gonca\Desktop\Revive\GGJ-Revive\Revive\Temp\bin\Debug\UnityEditor.iOS.Extensions.Xcode.xml
-C:\Users\Gonca\Desktop\Revive\GGJ-Revive\Revive\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
-C:\Users\Gonca\Desktop\Revive\GGJ-Revive\Revive\obj\Debug\Assembly-CSharp.dll
-C:\Users\Gonca\Desktop\Revive\GGJ-Revive\Revive\obj\Debug\Assembly-CSharp.pdb
-C:\Users\Gonca\Desktop\Revive\GGJ-Revive\Revive\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb
+C:\Users\Gonca\Desktop\Revive\GGJ-Revive\Revive\obj\Debug\Assembly-CSharp-firstpass.csprojResolveAssemblyReference.cache
+C:\Users\Gonca\Desktop\Revive\GGJ-Revive\Revive\obj\Debug\Assembly-CSharp-firstpass.dll
+C:\Users\Gonca\Desktop\Revive\GGJ-Revive\Revive\obj\Debug\Assembly-CSharp-firstpass.pdb
