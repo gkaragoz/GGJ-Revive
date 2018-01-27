@@ -21,9 +21,11 @@ GameObject:
   - component: {fileID: 4239176285974874}
   - component: {fileID: 33775034347699858}
   - component: {fileID: 23191922152848504}
+  - component: {fileID: 65397722017353774}
+  - component: {fileID: 114752840732875978}
   m_Layer: 0
   m_Name: Tombstone_01
-  m_TagString: Untagged
+  m_TagString: Grave
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52,7 +54,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1771191386064890}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 34.73, y: 0, z: 38.79}
+  m_LocalPosition: {x: 32.6, y: 0, z: 37.8}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children:
   - {fileID: 4327131028766036}
@@ -154,3 +156,31 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1771191386064890}
   m_Mesh: {fileID: 4300000, guid: fc1247df7400c3c47b8645eeba88b85f, type: 3}
+--- !u!65 &65397722017353774
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1771191386064890}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.0051539675, y: 0.009572688, z: 0.021799238}
+  m_Center: {x: -0.0005315375, y: -0.000095223484, z: 0.010784938}
+--- !u!114 &114752840732875978
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1771191386064890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3247c42b1a7a68e48a2d1d85cf42ddb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rebornTime: 5
+  remainingRebornTime: 0
+  isDeath: 0
+  skeletonAIPrefab: {fileID: 114513748937304990, guid: 7be0c86d35344eb4a886f68560267bdc,
+    type: 2}

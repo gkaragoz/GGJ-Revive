@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Linq;
 
 public class SkeletonAI : MonoBehaviour {
 
@@ -39,13 +40,24 @@ public class SkeletonAI : MonoBehaviour {
     }
 
     void Update() {
-        if (target == null) {
+        //search for closest skeleton
+        //if there is no skeleton than settarget necromancer
+        //if it finds closest skeleton
+        //than go to that skeleton
+
+        //if that skeleton reached enemy
+            //than attack it
+
+        SkeletonAI skeleton = GetClosestSkeleton();
+        Debug.Log(skeleton);
+        if (skeleton == null) {
             SetTarget(necromancerTarget);
-            return;
+        } else {
+            SetTarget(skeleton.transform);
         }
 
         if (isBorning == false) {
-            agent.SetDestination(necromancerTarget.position);
+            agent.SetDestination(target.position);
         }
     }
 
@@ -63,8 +75,22 @@ public class SkeletonAI : MonoBehaviour {
         isBorning = false;
     }
 
-    void FindEnemy() {
+    SkeletonAI GetClosestSkeleton() {
+        List<SkeletonAI> skeletons = GameManager.instance.allSkeletons.Where(a => a.team != team).ToList();
 
+        SkeletonAI bestTarget = null;
+        float closestDistanceSqr = Mathf.Infinity;
+        Vector3 currentPosition = transform.position;
+        foreach (SkeletonAI potentialTarget in skeletons) {
+            Vector3 directionToTarget = potentialTarget.transform.position - currentPosition;
+            float dSqrToTarget = directionToTarget.sqrMagnitude;
+
+            if (dSqrToTarget < closestDistanceSqr) {
+                closestDistanceSqr = dSqrToTarget;
+                bestTarget = potentialTarget;
+            }
+        }
+        return bestTarget;
     }
 
     void SetTarget(Transform target) {
