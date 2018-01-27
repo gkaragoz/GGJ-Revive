@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class FlowerManager : MonoBehaviour {
 
+    public float rebornTime = 5f; //Seconds
+    public float remainingRebornTime = 0f;
+    public bool isDeath = false;
     public bool isTurning = false;
     public bool isGreen = true;
     public Material darkFlower;
@@ -18,6 +21,19 @@ public class FlowerManager : MonoBehaviour {
         flower = GetComponent<MeshRenderer>();
 		dieEffect = transform.Find ("Flower Die Particle Effect").GetComponent<ParticleSystem> ();
 		dieEffect.Stop ();
+
+        remainingRebornTime = rebornTime;
+    }
+
+    void Update() {
+        if (isDeath == true) {
+            remainingRebornTime -= Time.deltaTime;
+
+            if (remainingRebornTime <= 0) {
+                remainingRebornTime = rebornTime;
+                GrowGreen();
+            }
+        }
     }
 
 	public void OnInteracted(Transform interactor) {
@@ -42,13 +58,14 @@ public class FlowerManager : MonoBehaviour {
 	}
 
     void OnBecomeDarkComplete() {
-        LeanTween.scale(this.gameObject, Vector3.one, 2f).setEaseOutQuad().setOnComplete(OnFinish);
+        LeanTween.scale(this.gameObject, Vector3.one, 2f).setEaseOutQuad().setOnComplete(OnFinishDarkTurning);
         flower.material = darkFlower;
         isGreen = false;
     }
 
-    void OnFinish() {
+    void OnFinishDarkTurning() {
         isTurning = false;
+        isDeath = true;
     }
 
     void GrowGreen() {
@@ -57,9 +74,16 @@ public class FlowerManager : MonoBehaviour {
     }
 
     void OnGrowGreenComplete() {
-        LeanTween.scale(this.gameObject, Vector3.one, 2f).setEaseOutQuad().setOnComplete(OnFinish);
+        LeanTween.scale(this.gameObject, Vector3.one, 2f).setEaseOutQuad().setOnComplete(OnFinishGreenTurning);
         flower.material = greenFlower;
         isGreen = true;
+        isDeath = false;
+    }
+
+    void OnFinishGreenTurning()
+    {
+        isTurning = false;
+        isDeath = true;
     }
 
 }
