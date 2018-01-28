@@ -18,6 +18,12 @@ public class UIManager : MonoBehaviour {
         if (instance == null)
             instance = this;
 
+        objGamePlay = GameObject.Find("Canvas").transform.GetChild(0).gameObject;
+        objGameOver = GameObject.Find("Canvas").transform.GetChild(1).gameObject;
+
+        btnReplay = objGameOver.GetComponentInChildren<Button>(true);
+        btnPlay = objGamePlay.GetComponentInChildren<Button>(true);
+
         btnPlay.onClick.AddListener(delegate
         {
             StartGame();    
@@ -25,9 +31,8 @@ public class UIManager : MonoBehaviour {
 
         btnReplay.onClick.AddListener(delegate
         {
+            SceneManager.LoadScene(0);
         });
-
-        DontDestroyOnLoad(this.gameObject);
 	}
 
     public void StartGame()
@@ -35,6 +40,7 @@ public class UIManager : MonoBehaviour {
         objGameOver.SetActive(false);
         objGamePlay.SetActive(false);
         GameManager.instance.isGameStarted = true;
+        GameManager.instance.GameFinished = false;
     }
 
     public void OpenGameOver()

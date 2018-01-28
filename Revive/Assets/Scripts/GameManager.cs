@@ -35,6 +35,8 @@ public class GameManager : MonoBehaviour {
         if (instance == null)
             instance = this;
 
+        isGameFinished = true;
+
         GameObject[] allFlowersObjs = GameObject.FindGameObjectsWithTag("Flower");
         foreach (var flower in allFlowersObjs) {
             allFlowers.Add(flower.GetComponent<FlowerManager>());
