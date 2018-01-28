@@ -2650,7 +2650,7 @@ GameObject:
   - component: {fileID: 95425714626975050}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Opponent
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5903,7 +5903,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInteracting: 0
+  isDeath: 0
   overrideAgentValues: 1
+  maxHealth: 10
+  currentHealth: 0
+  upgradeAmount: 0
   graveInteractionTime: 1
   graveInteractRange: 4
   flowerInteractionTime: 2

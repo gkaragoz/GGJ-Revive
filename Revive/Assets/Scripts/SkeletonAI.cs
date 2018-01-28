@@ -74,11 +74,28 @@ public class SkeletonAI : MonoBehaviour {
 
         LookAtCamera(txtStats.transform.parent);
 
+        if (GameManager.instance.isGameFinished) {
+            StopAgent();
+            anim.SetBool("isAttacking", false);
+            anim.SetBool("Walk", false);
+            return;
+        }
+
         SkeletonAI skeleton = GetClosestSkeleton();
         if (skeleton == null) {
             SetTarget(necromancerTarget);
+            if (HasTargetReached(necromancerTarget)) {
+                if (necromancerTarget.GetComponent<PlayerController>().isDeath == false) {
+                    if (isAttacking == false) {
+                        StartCoroutine(Attack(necromancerTarget));
+                    }
+                } else {
+                    necromancerTarget = null;
+                    skeleton = null;
+                }
+            }
         } else if (isAttacking == false && HasTargetReached(skeleton.transform) == true) {
-            StartCoroutine(Attack(skeleton));
+            StartCoroutine(Attack(skeleton.transform));
         } else if (isAttacking == false && skeleton.isDeath == false && HasTargetReached(skeleton.transform) == false) {
             SetTarget(skeleton.transform);
         } else {
@@ -101,21 +118,34 @@ public class SkeletonAI : MonoBehaviour {
         txtStats.text = attackDamage + " + " + upgradeAmount;
     }
 
-    IEnumerator Attack(SkeletonAI skeleton) {
+    IEnumerator Attack(Transform obj) {
         anim.SetBool("Walk", false);
         isAttacking = true;
         anim.SetBool("isAttacking", isAttacking);
         StopAgent();
         
-        while (skeleton.isDeath == false) {
-            anim.SetTrigger("Attack");
-            yield return new WaitForSeconds(attackSpeed);
-            StartCoroutine(skeleton.HitDamage(attackDamage));
+        if (obj.gameObject.tag == "Skeleton") {
+            SkeletonAI skeleton = obj.GetComponent<SkeletonAI>();
+
+            while (skeleton.isDeath == false) {
+                anim.SetTrigger("Attack");
+                yield return new WaitForSeconds(attackSpeed);
+                StartCoroutine(skeleton.HitDamage(attackDamage));
+            }
+        } else if (obj.gameObject.tag == "Player") {
+            PlayerController player = obj.GetComponent<PlayerController>();
+
+            while (player.isDeath == false)
+            {
+                anim.SetTrigger("Attack");
+                yield return new WaitForSeconds(attackSpeed);
+                StartCoroutine(player.HitDamage(attackDamage));
+            }
         }
 
-        ReleaseAgent();
         isAttacking = false;
         anim.SetBool("isAttacking", isAttacking);
+        ReleaseAgent();
     }
 
     IEnumerator HitDamage(float amount) {
