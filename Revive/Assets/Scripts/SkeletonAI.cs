@@ -85,13 +85,25 @@ public class SkeletonAI : MonoBehaviour {
         if (skeleton == null) {
             SetTarget(necromancerTarget);
             if (HasTargetReached(necromancerTarget)) {
-                if (necromancerTarget.GetComponent<PlayerController>().isDeath == false) {
-                    if (isAttacking == false) {
-                        StartCoroutine(Attack(necromancerTarget));
+                if (necromancerTarget.tag == "Player")
+                {
+                    if (necromancerTarget.GetComponent<PlayerController>().isDeath == false) {
+                        if (isAttacking == false) {
+                            StartCoroutine(Attack(necromancerTarget));
+                        }
+                    } else {
+                        necromancerTarget = null;
+                        skeleton = null;
                     }
-                } else {
-                    necromancerTarget = null;
-                    skeleton = null;
+                } else if (necromancerTarget.tag == "Opponent") {
+                    if (necromancerTarget.GetComponent<OpponentAI>().isDeath == false) {
+                        if (isAttacking == false) {
+                            StartCoroutine(Attack(necromancerTarget));
+                        }
+                    } else {
+                        necromancerTarget = null;
+                        skeleton = null;
+                    }
                 }
             }
         } else if (isAttacking == false && HasTargetReached(skeleton.transform) == true) {
@@ -124,18 +136,22 @@ public class SkeletonAI : MonoBehaviour {
         anim.SetBool("isAttacking", isAttacking);
         StopAgent();
         
-        if (obj.gameObject.tag == "Skeleton") {
+        if (obj.gameObject.tag == "Skeleton")
+        {
             SkeletonAI skeleton = obj.GetComponent<SkeletonAI>();
 
-            while (skeleton.isDeath == false) {
+            while (skeleton.isDeath == false && HasTargetReached(skeleton.transform) == true)
+            {
                 anim.SetTrigger("Attack");
                 yield return new WaitForSeconds(attackSpeed);
                 StartCoroutine(skeleton.HitDamage(attackDamage));
             }
-        } else if (obj.gameObject.tag == "Player") {
+        }
+        else if (obj.gameObject.tag == "Player")
+        {
             PlayerController player = obj.GetComponent<PlayerController>();
 
-            while (player.isDeath == false)
+            while (player.isDeath == false && HasTargetReached(player.transform) == true)
             {
                 anim.SetTrigger("Attack");
                 yield return new WaitForSeconds(attackSpeed);

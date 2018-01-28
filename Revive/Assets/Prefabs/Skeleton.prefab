@@ -2604,7 +2604,7 @@ MonoBehaviour:
   maxHealth: 10
   currentHealth: 0
   attackSpeed: 2
-  attackRange: 2
+  attackRange: 1.2
   attackDamage: 2
   upgradeAmount: 0
   movementSpeed: 2.5
