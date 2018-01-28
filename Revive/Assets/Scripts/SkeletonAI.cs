@@ -185,6 +185,7 @@ public class SkeletonAI : MonoBehaviour {
     IEnumerator BornAnimation() {
         isBorning = true;
         StopAgent();
+
         yield return new WaitForSeconds(AnimationDatas.instance.GetAnimationLength(AnimationDatas.AnimationStates.Born));
 
         ReleaseAgent();

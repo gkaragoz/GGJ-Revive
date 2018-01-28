@@ -171,7 +171,7 @@ public class PlayerController : MonoBehaviour {
         isInteracting = true;
         StopAgent();
 
-        //anim.Start(graveInteractAnimation);
+        anim.SetTrigger("CallSkeleton");
 
         foreach (var grave in interactableGraves)
         {
