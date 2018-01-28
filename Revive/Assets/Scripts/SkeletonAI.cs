@@ -132,6 +132,9 @@ public class SkeletonAI : MonoBehaviour {
     }
 
     public void SetStatsText() {
+        if (txtStats == null)
+            return;
+
         if (team == Team.Player) {
             txtStats.color = playerColor;
         } else if (team == Team.Enemy) {

@@ -315,6 +315,7 @@ public class OpponentAI : MonoBehaviour {
         anim.SetTrigger("Die");
         StopAgent();
 
+        GameManager.instance.SetCameraToDeath();
         yield return new WaitForSeconds(3f);
         GameManager.instance.GameFinished = true;
 

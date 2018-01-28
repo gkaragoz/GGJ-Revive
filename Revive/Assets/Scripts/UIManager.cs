@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour {
     public GameObject objGameOver;
     public GameObject objGamePlay;
 
+    public Button btnReplay;
     public Button btnPlay;
 
 	void Awake () {
@@ -20,6 +21,10 @@ public class UIManager : MonoBehaviour {
         btnPlay.onClick.AddListener(delegate
         {
             StartGame();    
+        });
+
+        btnReplay.onClick.AddListener(delegate
+        {
         });
 
         DontDestroyOnLoad(this.gameObject);

@@ -13269,7 +13269,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 2}
       propertyPath: lastTab
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 2}
       propertyPath: maxHeight
@@ -13306,6 +13306,18 @@ Prefab:
     - target: {fileID: 2056488, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 2}
       propertyPath: m_RenderingPath
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 2}
+      propertyPath: followingSpeed
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 2}
+      propertyPath: targetFollow
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 2}
+      propertyPath: targetOffset.x
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9275010, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 2}
@@ -23560,6 +23572,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objGameOver: {fileID: 789681956}
   objGamePlay: {fileID: 2144099162}
+  btnReplay: {fileID: 556777926}
   btnPlay: {fileID: 1647682656}
 --- !u!4 &1976540086
 Transform:
@@ -24803,6 +24816,11 @@ Prefab:
     - target: {fileID: 4622346640445904, guid: 13e57c0586cbdec43810d01f518774bc, type: 2}
       propertyPath: m_RootOrder
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114767855507086212, guid: 13e57c0586cbdec43810d01f518774bc,
+        type: 2}
+      propertyPath: graveInteractionTime
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 13e57c0586cbdec43810d01f518774bc, type: 2}

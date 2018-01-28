@@ -23,7 +23,9 @@ public class GameManager : MonoBehaviour {
         {
             isGameFinished = value;
             if (isGameFinished == true)
+            {
                 UIManager.instance.OpenGameOver();
+            }
         }
     }
 
@@ -45,5 +47,13 @@ public class GameManager : MonoBehaviour {
 
         player = GameObject.Find("Player").GetComponent<PlayerController>();
         opponent = GameObject.Find("Opponent").GetComponent<OpponentAI>();
+    }
+
+    public void SetCameraToDeath() {
+        if (player.isDeath)
+            Camera.main.GetComponent<RTS_Cam.RTS_Camera>().SetTarget(player.transform);
+        else if (opponent.isDeath)
+            Camera.main.GetComponent<RTS_Cam.RTS_Camera>().SetTarget(opponent.transform);
+
     }
 }
