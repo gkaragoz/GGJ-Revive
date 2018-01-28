@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 198795950228386450}
   - component: {fileID: 199248251119651864}
   m_Layer: 0
-  m_Name: 'Flower Die Particle Effect '
+  m_Name: Flower Die Particle Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 114527120651766706}
   m_Layer: 0
   m_Name: Flower_Short_Cyan
-  m_TagString: Untagged
+  m_TagString: Flower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -113,9 +113,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1951739338300738}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -17.63, y: 0, z: 22.62}
-  m_LocalScale: {x: 1.2594962, y: 1.2594962, z: 1.2594962}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
+  m_LocalPosition: {x: -18.66, y: 0, z: 21.62}
+  m_LocalScale: {x: 1.3075495, y: 1.3075495, z: 1.3075495}
   m_Children:
   - {fileID: 4213805727614708}
   - {fileID: 4934561080054704}
@@ -239,8 +239,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.027117252, y: 0.024891563, z: 0.015302941}
-  m_Center: {x: -0.00051199226, y: -0.00020409604, z: 0.0065952996}
+  m_Size: {x: 0.0635722, y: 0.058687843, z: 0.015302941}
+  m_Center: {x: -0.00046592962, y: -0.001269859, z: 0.0065953135}
 --- !u!65 &65688598987527746
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -251,8 +251,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.13212878, y: 0.12473359, z: 0.023355182}
-  m_Center: {x: 0.0012337397, y: -0.0010463118, z: 0.009235491}
+  m_Size: {x: 0.28941956, y: 0.352857, z: 0.023355182}
+  m_Center: {x: -0.0074450704, y: -0.011729708, z: 0.009235513}
 --- !u!114 &114527120651766706
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -264,7 +264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8929f858bb374a4c86f556bcaec2e15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: {x: 1.2594962, y: 1.2594962, z: 1.2594962}
+  size: {x: 1.3075495, y: 1.3075495, z: 1.3075495}
   maxSize: 2
   minSize: 1
 --- !u!114 &114558595223406064
@@ -279,7 +279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rebornTime: 5
-  remainingRebornTime: 0
+  remainingRebornTime: 5
   isDeath: 0
   isTurning: 0
   deathFlowerPrefab: {fileID: 4213805727614708}
