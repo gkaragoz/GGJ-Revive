@@ -88,7 +88,9 @@ public class OpponentAI : MonoBehaviour {
                         SetTarget(grave);
                     } else {
                         Transform flower = GetClosestAvailableFlower().transform;
-                        SetTarget(flower);
+
+                        if (flower !=  null)
+                            SetTarget(flower);
                     }
                 }
             }
