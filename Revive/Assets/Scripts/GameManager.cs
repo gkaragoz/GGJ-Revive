@@ -24,7 +24,10 @@ public class GameManager : MonoBehaviour {
             isGameFinished = value;
             if (isGameFinished == true)
             {
-                UIManager.instance.OpenGameOver();
+                if (player.isDeath)
+                    UIManager.instance.OpenGameOver("Opponent");
+                else if (opponent.isDeath)
+                    UIManager.instance.OpenGameOver("Player");
             }
         }
     }

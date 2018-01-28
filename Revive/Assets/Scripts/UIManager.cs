@@ -11,6 +11,9 @@ public class UIManager : MonoBehaviour {
     public GameObject objGameOver;
     public GameObject objGamePlay;
 
+    public GameObject imgYouWin;
+    public GameObject imgGameOver;
+
     public Button btnReplay;
     public Button btnPlay;
 
@@ -24,6 +27,12 @@ public class UIManager : MonoBehaviour {
         btnReplay = objGameOver.GetComponentInChildren<Button>(true);
         btnPlay = objGamePlay.GetComponentInChildren<Button>(true);
 
+        imgYouWin = objGameOver.transform.Find("imgYouWin").gameObject;
+        imgGameOver = objGameOver.transform.Find("imgGameOver").gameObject;
+
+        imgYouWin.SetActive(false);
+        imgGameOver.SetActive(false);
+
         btnPlay.onClick.AddListener(delegate
         {
             StartGame();    
@@ -35,6 +44,16 @@ public class UIManager : MonoBehaviour {
         });
 	}
 
+    public void PlayerWin() {
+        imgYouWin.SetActive(true);
+        imgGameOver.SetActive(false);
+    }
+
+    public void OpponentWin() {
+        imgYouWin.SetActive(false);
+        imgGameOver.SetActive(true);
+    }
+
     public void StartGame()
     {
         objGameOver.SetActive(false);
@@ -43,8 +62,14 @@ public class UIManager : MonoBehaviour {
         GameManager.instance.GameFinished = false;
     }
 
-    public void OpenGameOver()
+    public void OpenGameOver(string who)
     {
+        if (who == "Player") {
+            PlayerWin();
+        } else if (who == "Opponent") {
+            OpponentWin();
+        }
+
         objGamePlay.SetActive(false);
         objGameOver.SetActive(true);
         GameManager.instance.isGameStarted = false;
