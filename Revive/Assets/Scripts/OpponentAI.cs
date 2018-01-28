@@ -82,7 +82,7 @@ public class OpponentAI : MonoBehaviour {
                         Transform skeleton = GetClosestFriendSkeleton().transform;
 
                         if (skeleton != null)
-                            HealIt(skeleton);
+                            StartCoroutine(HealIt(skeleton));
                     }
 
                     if (Random.Range(0, 1f) < 0.5f) { //50% percentage of chance.  
@@ -104,8 +104,11 @@ public class OpponentAI : MonoBehaviour {
         }
 	}
 
-    void HealIt(Transform skeleton) {
+    IEnumerator HealIt(Transform skeleton) {
         if (skeleton.gameObject.GetComponent<SkeletonAI>().isDeath == false) {
+            anim.SetTrigger("HealIt");
+            yield return new WaitForSeconds(AnimationDatas.instance.GetAnimationLength(AnimationDatas.AnimationStates.HealIt));
+
             isInteracting = true;
             hasHealOnHands = false;
             GameObject fx = Instantiate(healFXObj.gameObject, transform.position, Quaternion.identity);
@@ -187,7 +190,7 @@ public class OpponentAI : MonoBehaviour {
         isInteracting = true;
         StopAgent();
 
-        //anim.Start(flowerInteractAnimation);
+        anim.SetTrigger("GetFlowerSprit");
 
         foreach (var flower in interactableFlowers) {
             flower.OnInteracted(transform);

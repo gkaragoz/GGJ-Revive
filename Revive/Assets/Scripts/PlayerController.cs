@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour {
                 OnMouseLeftClick();
             }
             if (Input.GetMouseButtonDown(1)) {
-                OnMouseRightClick(target);
+                StartCoroutine(OnMouseRightClick(target));
             }
         }
     }
