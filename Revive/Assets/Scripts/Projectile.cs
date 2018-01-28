@@ -6,6 +6,7 @@ public class Projectile : MonoBehaviour {
 
     public Transform areaOnHealFXObj;
 
+    private float bonusAmount;
     private bool targetReacted = false;
     private float movemenetSpeed = 25f;
     private float hitRange = 0.3f;
@@ -30,6 +31,7 @@ public class Projectile : MonoBehaviour {
     }
 
     void OnTargetReached() {
+        target.GetComponent<SkeletonAI>().TakePower(bonusAmount);
         targetReacted = true;
         Instantiate(areaOnHealFXObj.gameObject, 
             new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z), 
@@ -40,8 +42,9 @@ public class Projectile : MonoBehaviour {
         return Vector3.Distance(transform.position, target.position) <= hitRange ? true : false;
     }
 
-    public void SetTarget(Transform target, SkeletonAI.Team myTeam) {
+    public void SetTarget(Transform target, SkeletonAI.Team myTeam, float bonusAmount) {
         this.target = target;
         team = myTeam;
+        this.bonusAmount = bonusAmount;
     }
 }

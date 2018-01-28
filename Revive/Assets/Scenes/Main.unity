@@ -21046,26 +21046,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 114438907206690088, guid: d9bd080c8763ac24bba5eaaf6e58f80d,
-        type: 2}
-      propertyPath: flowerInteractionTime
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 114438907206690088, guid: d9bd080c8763ac24bba5eaaf6e58f80d,
-        type: 2}
-      propertyPath: movementSpeed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114438907206690088, guid: d9bd080c8763ac24bba5eaaf6e58f80d,
-        type: 2}
-      propertyPath: flowerInteractRange
-      value: 6.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114438907206690088, guid: d9bd080c8763ac24bba5eaaf6e58f80d,
-        type: 2}
-      propertyPath: graveInteractRange
-      value: 5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d9bd080c8763ac24bba5eaaf6e58f80d, type: 2}
   m_IsPrefabParent: 0
@@ -24823,16 +24803,6 @@ Prefab:
     - target: {fileID: 4622346640445904, guid: 13e57c0586cbdec43810d01f518774bc, type: 2}
       propertyPath: m_RootOrder
       value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 114767855507086212, guid: 13e57c0586cbdec43810d01f518774bc,
-        type: 2}
-      propertyPath: flowerInteractRange
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114767855507086212, guid: 13e57c0586cbdec43810d01f518774bc,
-        type: 2}
-      propertyPath: graveInteractionTime
-      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 13e57c0586cbdec43810d01f518774bc, type: 2}

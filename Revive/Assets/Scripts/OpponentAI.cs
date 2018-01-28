@@ -119,7 +119,7 @@ public class OpponentAI : MonoBehaviour {
             hasHealOnHands = false;
             GameObject fx = Instantiate(healFXObj.gameObject, transform.position, Quaternion.identity);
             fx.transform.parent = GameObject.Find("FX_TRASH").transform;
-            fx.GetComponent<Projectile>().SetTarget(skeleton.transform, SkeletonAI.Team.Enemy);
+            fx.GetComponent<Projectile>().SetTarget(skeleton.transform, SkeletonAI.Team.Enemy, upgradeAmount);
             isInteracting = false;
         }
     }
