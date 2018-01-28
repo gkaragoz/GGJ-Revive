@@ -143,17 +143,20 @@ public class SkeletonAI : MonoBehaviour {
     }
 
     void ReleaseAgent() {
-        agent.isStopped = false;
+        if (agent != null)
+            agent.isStopped = false;
     }
 
     void StopAgent() {
-        agent.isStopped = true;
+        if (agent != null)
+            agent.isStopped = true;
     }
 
     IEnumerator BornAnimation() {
         isBorning = true;
         StopAgent();
         yield return new WaitForSeconds(AnimationDatas.instance.GetAnimationLength(AnimationDatas.AnimationStates.Born));
+
         ReleaseAgent();
         isBorning = false;
     }
@@ -204,8 +207,12 @@ public class SkeletonAI : MonoBehaviour {
         anim.SetBool("isAttacking", isAttacking);
         anim.SetBool("Walk", false);
         StopAgent();
-        Destroy(agent);
-        Destroy(txtStats.transform.parent.gameObject);
+
+        if (agent != null)
+            Destroy(agent);
+
+        if (txtStats != null)
+            Destroy(txtStats.transform.parent.gameObject);
     }
 
 }

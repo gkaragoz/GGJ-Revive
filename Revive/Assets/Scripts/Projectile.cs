@@ -34,8 +34,6 @@ public class Projectile : MonoBehaviour {
         Instantiate(areaOnHealFXObj.gameObject, 
             new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z), 
             Quaternion.identity);
-
-        Destroy(gameObject, 3f);
     }
 
     bool HasTargetReached() {
