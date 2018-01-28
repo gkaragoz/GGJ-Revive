@@ -15,8 +15,13 @@ public class FlowerManager : MonoBehaviour {
 	public float effectDistance;
 
     private MeshRenderer flower;
+	public Vector3 defaultSizeForLiveFlower;
+	public Vector3 defaultSizeForDeathFlower;
 
     void Awake() {
+		defaultSizeForLiveFlower = liveFlowerPrefab.localScale;
+		defaultSizeForDeathFlower = deathFlowerPrefab.localScale;
+
         flower = GetComponent<MeshRenderer>();
 		dieEffect.Stop ();
 
@@ -46,7 +51,8 @@ public class FlowerManager : MonoBehaviour {
     void Die() {
         isTurning = true;
         isDeath = true;
-        LeanTween.scale(this.gameObject, Vector3.zero, 2f).setEaseOutQuad().setOnComplete(OnDieComplete);
+		deathFlowerPrefab.localScale = Vector3.zero;
+		LeanTween.scale(liveFlowerPrefab.gameObject, Vector3.zero, 2f).setEaseOutQuad().setOnComplete(OnDieComplete);
     }
 
 	void PlayDeathParticleAnimation(Transform interactor){
@@ -59,8 +65,8 @@ public class FlowerManager : MonoBehaviour {
 	}
 
     void OnDieComplete() {
-        LeanTween.scale(this.gameObject, Vector3.one, 2f).setEaseOutQuad().setOnComplete(OnFinishTurningToDeath);
-        ActiveDeathFlower();
+		ActiveDeathFlower();
+		LeanTween.scale(deathFlowerPrefab.gameObject, defaultSizeForDeathFlower, 2f).setEaseOutQuad().setOnComplete(OnFinishTurningToDeath);
     }
 
     void OnFinishTurningToDeath() {
@@ -70,11 +76,11 @@ public class FlowerManager : MonoBehaviour {
     void Grow() {
         isTurning = true;
         isDeath = false;
-        LeanTween.scale(this.gameObject, Vector3.zero, 2f).setEaseOutQuad().setOnComplete(OnGrowComplete);
+		LeanTween.scale(deathFlowerPrefab.gameObject, Vector3.zero, 2f).setEaseOutQuad().setOnComplete(OnGrowComplete);
     }
 
     void OnGrowComplete() {
-        LeanTween.scale(this.gameObject, Vector3.one, 2f).setEaseOutQuad().setOnComplete(OnFinishTurningToLive);
+		LeanTween.scale(liveFlowerPrefab.gameObject, defaultSizeForLiveFlower, 2f).setEaseOutQuad().setOnComplete(OnFinishTurningToLive);
         ActiveLiveFlower();
     }
 
