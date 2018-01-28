@@ -8,7 +8,7 @@ public class Projectile : MonoBehaviour {
 
     private float bonusAmount;
     private bool targetReacted = false;
-    private float movemenetSpeed = 25f;
+    private float movemenetSpeed = 45f;
     private float hitRange = 0.3f;
 
     private SkeletonAI.Team team;
@@ -31,6 +31,9 @@ public class Projectile : MonoBehaviour {
     }
 
     void OnTargetReached() {
+        if (target.GetComponent<SkeletonAI>().isDeath)
+            return;
+
         target.GetComponent<SkeletonAI>().TakePower(bonusAmount);
         targetReacted = true;
         Instantiate(areaOnHealFXObj.gameObject, 

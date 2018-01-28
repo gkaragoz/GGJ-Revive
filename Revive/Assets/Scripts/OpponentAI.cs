@@ -111,14 +111,14 @@ public class OpponentAI : MonoBehaviour {
 	}
 
     IEnumerator HealIt(Transform skeleton) {
-        if (skeleton.gameObject.GetComponent<SkeletonAI>().isDeath == false) {
+        if (skeleton.gameObject.GetComponent<SkeletonAI>().isDeath == false && hasHealOnHands == true) {
             anim.SetTrigger("HealIt");
+            isInteracting = true;
+
             yield return new WaitForSeconds(AnimationDatas.instance.GetAnimationLength(AnimationDatas.AnimationStates.HealIt));
 
-            isInteracting = true;
             hasHealOnHands = false;
             GameObject fx = Instantiate(healFXObj.gameObject, transform.position, Quaternion.identity);
-            fx.transform.parent = GameObject.Find("FX_TRASH").transform;
             fx.GetComponent<Projectile>().SetTarget(skeleton.transform, SkeletonAI.Team.Enemy, upgradeAmount);
             isInteracting = false;
         }

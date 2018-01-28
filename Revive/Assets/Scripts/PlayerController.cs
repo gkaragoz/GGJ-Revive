@@ -88,7 +88,8 @@ public class PlayerController : MonoBehaviour {
                 OnMouseLeftClick();
             }
             if (Input.GetMouseButtonDown(1)) {
-                StartCoroutine(OnMouseRightClick(target));
+                if (hasHealOnHands == true)
+                    StartCoroutine(OnMouseRightClick(target));
             }
         }
     }
@@ -213,26 +214,34 @@ public class PlayerController : MonoBehaviour {
     }
 
     IEnumerator OnMouseRightClick(Transform target) {
-        anim.SetTrigger("HealIt");
-
-        yield return new WaitForSeconds(AnimationDatas.instance.GetAnimationLength(AnimationDatas.AnimationStates.HealIt));
-
+        SkeletonAI selectedSkeleton = null;
         RaycastHit hit;
 
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity)) {
             if (hit.transform.gameObject.tag == "Skeleton") {
-                if (hasHealOnHands == true) {
-                    if (hit.transform.gameObject.GetComponent<SkeletonAI>().isDeath == false) {
-                        if (hit.transform.gameObject.GetComponent<SkeletonAI>().team == SkeletonAI.Team.Player) {
-                            hasHealOnHands = false;
-                            GameObject fx = Instantiate(healFXObj.gameObject, transform.position, Quaternion.identity);
-                            fx.transform.parent = GameObject.Find("FX_TRASH").transform;
-                            fx.GetComponent<Projectile>().SetTarget(hit.transform, SkeletonAI.Team.Player, upgradeAmount);
-                        } 
-                    }
-                }
+                selectedSkeleton = hit.transform.GetComponent<SkeletonAI>();
             }
         }
+
+        if (selectedSkeleton == null)
+            yield return null;
+
+        if (selectedSkeleton.isDeath == true || hasHealOnHands == false)
+            yield return null;
+
+        if (hit.transform.gameObject.GetComponent<SkeletonAI>().team != SkeletonAI.Team.Player)
+            yield return null;
+
+        anim.SetTrigger("HealIt");
+        isInteracting = true;
+
+        yield return new WaitForSeconds(AnimationDatas.instance.GetAnimationLength(AnimationDatas.AnimationStates.HealIt) / 2f);
+
+        GameObject fx = Instantiate(healFXObj.gameObject, transform.position, Quaternion.identity);
+        fx.GetComponent<Projectile>().SetTarget(hit.transform, SkeletonAI.Team.Player, upgradeAmount);
+
+        hasHealOnHands = false;
+        isInteracting = false;
     }
 
     IEnumerator Die() {
