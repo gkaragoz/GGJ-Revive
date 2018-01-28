@@ -5910,7 +5910,7 @@ MonoBehaviour:
   upgradeAmount: 2
   graveInteractionTime: 3
   graveInteractRange: 5
-  flowerInteractionTime: 3
+  flowerInteractionTime: 3.5
   flowerInteractRange: 6.5
   movementSpeed: 5
   angularSpeed: 360

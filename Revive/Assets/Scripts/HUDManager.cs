@@ -6,18 +6,18 @@ using UnityEngine.UI;
 public class HUDManager : MonoBehaviour {
 	public Slider playerHealthSlider;
 	public Slider opponentHealthSlider;
-	public GameObject player;
-	public GameObject opponent;
 
-	void Awake(){
+	void Awake()
+    {
+        playerHealthSlider = GameObject.Find("Canvas").transform.GetChild(3).GetComponent<Slider>();
+        opponentHealthSlider = GameObject.Find("Canvas").transform.GetChild(2).GetComponent<Slider>();
+
 		playerHealthSlider.value = 100;
 		opponentHealthSlider.value = 100;
 	}
 
-	// Update is called once per frame
 	void Update () {
-		playerHealthSlider.value = player.GetComponent<PlayerController> ().currentHealth / player.GetComponent<PlayerController> ().maxHealth;
-		opponentHealthSlider.value = opponent.GetComponent<OpponentAI> ().currentHealth / opponent.GetComponent<OpponentAI> ().maxHealth;
-
+		playerHealthSlider.value = GameManager.instance.player.GetComponent<PlayerController> ().currentHealth / GameManager.instance.player.GetComponent<PlayerController> ().maxHealth;
+		opponentHealthSlider.value = GameManager.instance.opponent.GetComponent<OpponentAI> ().currentHealth / GameManager.instance.opponent.GetComponent<OpponentAI> ().maxHealth;
 	}
 }
