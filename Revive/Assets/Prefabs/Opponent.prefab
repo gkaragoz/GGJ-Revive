@@ -5908,7 +5908,7 @@ MonoBehaviour:
   maxHealth: 10
   currentHealth: 0
   upgradeAmount: 2
-  graveInteractionTime: 1.5
+  graveInteractionTime: 3
   graveInteractRange: 4
   flowerInteractionTime: 3
   flowerInteractRange: 5
