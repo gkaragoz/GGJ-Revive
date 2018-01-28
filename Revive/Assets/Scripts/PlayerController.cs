@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour {
     public float acceleration = 8;
     public float stoppingDistance = 0f;
     public bool autoBraking = true;
+    public bool hasHealOnHands = false;
     [HideInInspector]
     public Transform target;
     public Transform healFXObj;
@@ -60,8 +61,6 @@ public class PlayerController : MonoBehaviour {
                 OnMouseLeftClick();
             }
             if (Input.GetMouseButtonDown(1)) {
-
-
                 OnMouseRightClick(target);
             }
         }
@@ -122,6 +121,7 @@ public class PlayerController : MonoBehaviour {
 
         yield return new WaitForSeconds(flowerInteractionTime);
         isInteracting = false;
+        hasHealOnHands = true;
         ReleaseAgent();
     }
 
@@ -180,10 +180,15 @@ public class PlayerController : MonoBehaviour {
 
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity)) {
             if (hit.transform.gameObject.tag == "Skeleton") {
-                if (hit.transform.gameObject.GetComponent<SkeletonAI>().team == SkeletonAI.Team.Player) {
-                    GameObject fx = Instantiate(healFXObj.gameObject, transform.position, Quaternion.identity);
-                    fx.GetComponent<Projectile>().SetTarget(hit.transform, SkeletonAI.Team.Player);
-                } 
+                if (hasHealOnHands == true) {
+                    if (hit.transform.gameObject.GetComponent<SkeletonAI>().isDeath == false) {
+                        if (hit.transform.gameObject.GetComponent<SkeletonAI>().team == SkeletonAI.Team.Player) {
+                            hasHealOnHands = false;
+                            GameObject fx = Instantiate(healFXObj.gameObject, transform.position, Quaternion.identity);
+                            fx.GetComponent<Projectile>().SetTarget(hit.transform, SkeletonAI.Team.Player);
+                        } 
+                    }
+                }
             }
         }
 
