@@ -10,6 +10,7 @@ public class GraveManager : MonoBehaviour {
 
     public GameObject spawnPoint;
     public SkeletonAI skeletonAIPrefab;
+    public ParticleSystem bornFXPrefab;
 
     void Awake()
     {
@@ -46,6 +47,12 @@ public class GraveManager : MonoBehaviour {
     void InstantiateSkeleton(SkeletonAI.Team team) {
         SkeletonAI skeleton = Instantiate(skeletonAIPrefab, spawnPoint.transform.position, Quaternion.identity).GetComponent<SkeletonAI>();
         skeleton.SetTeam(team);
+        skeleton.SetStatsText();
+        StartBornFX();
         GameManager.instance.allSkeletons.Add(skeleton);
+    }
+
+    void StartBornFX() {
+        bornFXPrefab.Play();
     }
 }

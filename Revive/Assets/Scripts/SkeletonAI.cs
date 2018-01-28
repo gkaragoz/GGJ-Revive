@@ -38,6 +38,8 @@ public class SkeletonAI : MonoBehaviour {
     public Transform necromancerTarget;
     public TextMesh txtStats;
 
+    public Color opponentColor;
+    public Color playerColor;
     private Animator anim;
 
     public float Health {
@@ -82,11 +84,10 @@ public class SkeletonAI : MonoBehaviour {
         }
 
         SkeletonAI skeleton = GetClosestSkeleton();
-        if (skeleton == null) {
+        if (skeleton == null || skeleton.isDeath == true) {
             SetTarget(necromancerTarget);
             if (HasTargetReached(necromancerTarget)) {
-                if (necromancerTarget.tag == "Player")
-                {
+                if (necromancerTarget.tag == "Player") {
                     if (necromancerTarget.GetComponent<PlayerController>().isDeath == false) {
                         if (isAttacking == false) {
                             StartCoroutine(Attack(necromancerTarget));
@@ -120,11 +121,11 @@ public class SkeletonAI : MonoBehaviour {
         }
     }
 
-    void SetStatText() {
+    public void SetStatsText() {
         if (team == Team.Player) {
-            txtStats.color = new Color(23, 179, 210);
-        } else {
-            txtStats.color = new Color(210, 89, 23);
+            txtStats.color = playerColor;
+        } else if (team == Team.Enemy) {
+            txtStats.color = opponentColor;
         }
 
         txtStats.text = attackDamage + " + " + upgradeAmount;
@@ -135,7 +136,7 @@ public class SkeletonAI : MonoBehaviour {
         isAttacking = true;
         anim.SetBool("isAttacking", isAttacking);
         StopAgent();
-        
+
         if (obj.gameObject.tag == "Skeleton")
         {
             SkeletonAI skeleton = obj.GetComponent<SkeletonAI>();
@@ -156,6 +157,17 @@ public class SkeletonAI : MonoBehaviour {
                 anim.SetTrigger("Attack");
                 yield return new WaitForSeconds(attackSpeed);
                 StartCoroutine(player.HitDamage(attackDamage));
+            }
+        }
+        else if (obj.gameObject.tag == "Opponent")
+        {
+            OpponentAI opponent = obj.GetComponent<OpponentAI>();
+
+            while (opponent.isDeath == false && HasTargetReached(opponent.transform) == true)
+            {
+                anim.SetTrigger("Attack");
+                yield return new WaitForSeconds(attackSpeed);
+                StartCoroutine(opponent.HitDamage(attackDamage));
             }
         }
 

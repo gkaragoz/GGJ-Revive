@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -105,11 +104,14 @@ public class PlayerController : MonoBehaviour {
     }
 
     void ReleaseAgent() {
-        agent.isStopped = false;
+        if (agent != null)
+            agent.isStopped = false;
     }
 
     void StopAgent() {
-        agent.isStopped = true;
+        if (agent != null)
+            agent.isStopped = true;
+
         SetTarget(transform.position);
     }
 

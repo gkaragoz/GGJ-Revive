@@ -56,6 +56,9 @@ public class OpponentAI : MonoBehaviour {
     }
 	
 	void Update () {
+        if (isDeath)
+            return;
+
         if (overrideAgentValues)
             SetAgent();
 
@@ -202,6 +205,12 @@ public class OpponentAI : MonoBehaviour {
         ReleaseAgent();
     }
 
+    public IEnumerator HitDamage(float amount) {
+        Health -= amount;
+        //Take hit animation.
+        yield return new WaitForSeconds(0f);
+    }
+
     bool HasArrivedTarget(Transform target) {
         if (target == null)
             return false;
@@ -240,11 +249,13 @@ public class OpponentAI : MonoBehaviour {
     }
 
     void ReleaseAgent() {
-        agent.isStopped = false;
+        if (agent != null)
+            agent.isStopped = false;
     }
 
     void StopAgent() {
-        agent.isStopped = true;
+        if (agent != null)
+            agent.isStopped = true;
     }
 
     GraveManager GetClosestAvailableGrave() {
