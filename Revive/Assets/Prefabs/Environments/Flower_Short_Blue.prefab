@@ -45,7 +45,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1222871720876528
 GameObject:
   m_ObjectHideFlags: 0
@@ -114,8 +114,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1222871720876528}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 21.13, y: 0, z: 28.91}
-  m_LocalScale: {x: 20.74936, y: 20.74936, z: 20.74936}
+  m_LocalPosition: {x: -7.5, y: 0, z: -1.6}
+  m_LocalScale: {x: 20.280401, y: 20.280401, z: 20.280401}
   m_Children:
   - {fileID: 4969969067992414}
   - {fileID: 4521202784192860}
@@ -249,8 +249,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.08415474, y: 0.083571985, z: 0.008603467}
-  m_Center: {x: 0.00034208596, y: 0.00028567016, z: 0.003433966}
+  m_Size: {x: 0.08415473, y: 0.083571985, z: 0.029858556}
+  m_Center: {x: 0.00034208508, y: 0.00028567048, z: 0.01406151}
 --- !u!114 &114151836777150832
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -262,7 +262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8929f858bb374a4c86f556bcaec2e15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: {x: 20.74936, y: 20.74936, z: 20.74936}
+  size: {x: 20.280401, y: 20.280401, z: 20.280401}
   maxSize: 25
   minSize: 20
 --- !u!114 &114610936333262220
@@ -344,7 +344,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -155970220
+  randomSeed: 2016108540
   InitialModule:
     serializedVersion: 3
     enabled: 1
