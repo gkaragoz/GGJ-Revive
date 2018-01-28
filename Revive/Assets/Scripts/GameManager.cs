@@ -24,7 +24,10 @@ public class GameManager : MonoBehaviour {
             isGameFinished = value;
             if (isGameFinished == true)
             {
-                UIManager.instance.OpenGameOver();
+                if (player.isDeath)
+                    UIManager.instance.OpenGameOver("Opponent");
+                else if (opponent.isDeath)
+                    UIManager.instance.OpenGameOver("Player");
             }
         }
     }
@@ -34,6 +37,8 @@ public class GameManager : MonoBehaviour {
     void Awake() {
         if (instance == null)
             instance = this;
+
+        isGameFinished = true;
 
         GameObject[] allFlowersObjs = GameObject.FindGameObjectsWithTag("Flower");
         foreach (var flower in allFlowersObjs) {
