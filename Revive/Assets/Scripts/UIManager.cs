@@ -14,6 +14,8 @@ public class UIManager : MonoBehaviour {
     public GameObject imgYouWin;
     public GameObject imgGameOver;
 
+    public HUDManager hudManager;
+
     public Button btnReplay;
     public Button btnPlay;
 
@@ -21,6 +23,9 @@ public class UIManager : MonoBehaviour {
         if (instance == null) {
             instance = this;
         }
+
+        hudManager = GameObject.Find("_HUDManager").gameObject.GetComponent<HUDManager>();
+        hudManager.CloseHUD();
 
         objGamePlay = GameObject.Find("Canvas").transform.GetChild(0).gameObject;
         objGameOver = GameObject.Find("Canvas").transform.GetChild(1).gameObject;
@@ -57,6 +62,7 @@ public class UIManager : MonoBehaviour {
 
     public void StartGame()
     {
+        hudManager.OpenHUD();
         objGameOver.SetActive(false);
         objGamePlay.SetActive(false);
         GameManager.instance.isGameStarted = true;

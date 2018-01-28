@@ -20,4 +20,16 @@ public class HUDManager : MonoBehaviour {
 		playerHealthSlider.value = GameManager.instance.player.GetComponent<PlayerController> ().currentHealth / GameManager.instance.player.GetComponent<PlayerController> ().maxHealth;
 		opponentHealthSlider.value = GameManager.instance.opponent.GetComponent<OpponentAI> ().currentHealth / GameManager.instance.opponent.GetComponent<OpponentAI> ().maxHealth;
 	}
+
+    public void CloseHUD()
+    {
+        playerHealthSlider.gameObject.SetActive(false);
+        opponentHealthSlider.gameObject.SetActive(false);
+    }
+
+    public void OpenHUD()
+    {
+        playerHealthSlider.gameObject.SetActive(true);
+        opponentHealthSlider.gameObject.SetActive(true);
+    }
 }
