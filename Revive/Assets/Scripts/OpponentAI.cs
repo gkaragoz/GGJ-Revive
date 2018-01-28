@@ -49,6 +49,8 @@ public class OpponentAI : MonoBehaviour {
     }
 
     void Awake() {
+        currentHealth = maxHealth;
+
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
     }
@@ -126,6 +128,9 @@ public class OpponentAI : MonoBehaviour {
 
         if (HasAnyLiveSkeletons() == true) {
             foreach (var skeleton in GameManager.instance.allSkeletons) {
+                if (skeleton.team != SkeletonAI.Team.Enemy)
+                    continue;
+
                 if (Vector3.Distance(transform.position, skeleton.transform.position) <= closestDistance) {
                     closestSkeleton = skeleton;
                 }
