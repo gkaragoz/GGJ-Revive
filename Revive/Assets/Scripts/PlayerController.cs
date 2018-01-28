@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour {
             currentHealth = value;
             if (currentHealth <= 0)
             {
-                Die();
+                StartCoroutine(Die());
             }
         }
     }
@@ -56,6 +56,9 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Update() {
+        if (GameManager.instance.isGameStarted == false)
+            return;
+
         if (isDeath)
             return;
 
@@ -232,13 +235,15 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    void Die() {
-        GameManager.instance.isGameFinished = true;
+    IEnumerator Die() {
         isDeath = true;
         isInteracting = false;
         maxHealth = 0;
         anim.SetTrigger("Die");
         StopAgent();
+
+        yield return new WaitForSeconds(3f);
+        GameManager.instance.GameFinished = true;
 
         if (agent != null)
             Destroy(agent);

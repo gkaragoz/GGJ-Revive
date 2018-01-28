@@ -13,7 +13,19 @@ public class GameManager : MonoBehaviour {
     public PlayerController player;
     public OpponentAI opponent;
 
-    public bool isGameFinished = false;
+    private bool isGameFinished = false;
+    public bool isGameStarted = false;
+
+    public bool GameFinished
+    {
+        get { return isGameFinished; }
+        set
+        {
+            isGameFinished = value;
+            if (isGameFinished == true)
+                UIManager.instance.OpenGameOver();
+        }
+    }
 
     public static GameManager instance;
 

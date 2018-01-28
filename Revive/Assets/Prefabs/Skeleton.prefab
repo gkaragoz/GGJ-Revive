@@ -2611,6 +2611,7 @@ MonoBehaviour:
   angularSpeed: 360
   acceleration: 8
   stoppingDistance: 0
+  bornOffsetTime: -0.2
   autoBraking: 1
   target: {fileID: 0}
   necromancerTarget: {fileID: 0}
@@ -2748,7 +2749,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 1
 --- !u!212 &212048768952629342
 SpriteRenderer:
   m_ObjectHideFlags: 1

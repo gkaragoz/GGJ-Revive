@@ -82,7 +82,7 @@ public class SkeletonAI : MonoBehaviour {
 
         LookAtCamera(txtStats.transform.parent);
 
-        if (GameManager.instance.isGameFinished) {
+        if (GameManager.instance.GameFinished) {
             StopAgent();
             anim.SetBool("isAttacking", false);
             anim.SetBool("Walk", false);
@@ -123,7 +123,9 @@ public class SkeletonAI : MonoBehaviour {
 
         if (isBorning == false && isAttacking == false) {
             anim.SetBool("Walk", true);
-            agent.SetDestination(target.position);
+
+            if (agent != null && target != null)
+                agent.SetDestination(target.position);
         }
     }
 
