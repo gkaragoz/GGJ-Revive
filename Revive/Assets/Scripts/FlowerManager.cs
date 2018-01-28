@@ -18,7 +18,6 @@ public class FlowerManager : MonoBehaviour {
 
     void Awake() {
         flower = GetComponent<MeshRenderer>();
-		dieEffect = transform.Find("Flower Die Particle Effect").GetComponent<ParticleSystem>();
 		dieEffect.Stop ();
 
         remainingRebornTime = rebornTime;
