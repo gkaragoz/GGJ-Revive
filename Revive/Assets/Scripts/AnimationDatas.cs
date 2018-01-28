@@ -12,7 +12,9 @@ public class AnimationDatas : MonoBehaviour{
         Walk,
         Attack,
         Die,
-        Born
+        Born,
+        HealIt,
+        SpritFlowers
     }
 
     [System.Serializable]

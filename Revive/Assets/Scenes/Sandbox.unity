@@ -10936,6 +10936,12 @@ MonoBehaviour:
   - state: 4
     clip: {fileID: 7400000, guid: 9861ad15bd41011409ceffa19eb9c1cc, type: 3}
     animLength: 7.5833335
+  - state: 5
+    clip: {fileID: 7400000, guid: 07b1a2686c512ff4b93795e0b5edb0ec, type: 3}
+    animLength: 4.3
+  - state: 6
+    clip: {fileID: 7400000, guid: deaee02bf0195ce40a014118a0a9798b, type: 3}
+    animLength: 2.95
 --- !u!4 &981706382 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4630640963793790, guid: 3c719f9eb22390541a779d7cbff5d191,
