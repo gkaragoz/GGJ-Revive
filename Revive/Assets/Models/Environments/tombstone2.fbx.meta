@@ -1,16 +1,24 @@
 fileFormatVersion: 2
-guid: 1d667f7b443ec4d488858338dc882317
-timeCreated: 1517088960
-licenseType: Pro
+guid: 8e3664e07c46b7945a66d3ea1296a3ff
+timeCreated: 1517092990
+licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2100000: Material.001
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: Cube
+    100000: tas1
+    100002: tomb2
+    100004: //RootNode
+    400000: tas1
+    400002: tomb2
+    400004: //RootNode
+    2100000: Material.003
+    2100002: No Name
+    2300000: tas1
+    2300002: tomb2
+    3300000: tas1
+    3300002: tomb2
+    4300000: tas1
+    4300002: tomb2
   externalObjects: {}
   materials:
     importMaterials: 1
