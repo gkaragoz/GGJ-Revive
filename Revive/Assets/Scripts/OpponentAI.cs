@@ -20,8 +20,10 @@ public class OpponentAI : MonoBehaviour {
     public float acceleration = 8;
     public float stoppingDistance = 0f;
     public bool autoBraking = true;
+    public bool hasHealOnHands = false;
     [HideInInspector]
     public Transform target;
+    public Transform healFXObj;
 
     private List<FlowerManager> interactableFlowers = new List<FlowerManager>();
     private NavMeshAgent agent;
@@ -53,6 +55,13 @@ public class OpponentAI : MonoBehaviour {
                     Transform grave = GetClosestAvailableGrave().transform;
                     SetTarget(grave);
                 } else {
+                    if (hasHealOnHands) {
+                        Transform skeleton = GetClosestFriendSkeleton().transform;
+
+                        if (skeleton != null)
+                            HealIt(skeleton);
+                    }
+
                     if (Random.Range(0, 1f) < 0.5f) { //50% percentage of chance.  
                         Transform grave = GetClosestAvailableGrave().transform;
                         SetTarget(grave);
@@ -70,12 +79,37 @@ public class OpponentAI : MonoBehaviour {
         }
 	}
 
+    void HealIt(Transform skeleton) {
+        if (skeleton.gameObject.GetComponent<SkeletonAI>().isDeath == false) {
+            isInteracting = true;
+            hasHealOnHands = false;
+            GameObject fx = Instantiate(healFXObj.gameObject, transform.position, Quaternion.identity);
+            fx.GetComponent<Projectile>().SetTarget(skeleton.transform, SkeletonAI.Team.Enemy);
+            isInteracting = false;
+        }
+    }
+
     void SetAgent() {
         agent.speed = movementSpeed;
         agent.angularSpeed = angularSpeed;
         agent.acceleration = acceleration;
         agent.stoppingDistance = stoppingDistance;
         agent.autoBraking = autoBraking;
+    }
+
+    SkeletonAI GetClosestFriendSkeleton() {
+        SkeletonAI closestSkeleton = null;
+        float closestDistance = Mathf.Infinity;
+
+        if (HasAnyLiveSkeletons() == true) {
+            foreach (var skeleton in GameManager.instance.allSkeletons) {
+                if (Vector3.Distance(transform.position, skeleton.transform.position) <= closestDistance) {
+                    closestSkeleton = skeleton;
+                }
+            }
+        }
+
+        return closestSkeleton;
     }
 
     void Interact() {
@@ -133,6 +167,7 @@ public class OpponentAI : MonoBehaviour {
         }
 
         yield return new WaitForSeconds(flowerInteractionTime);
+        hasHealOnHands = true;
         isInteracting = false;
         ReleaseAgent();
     }

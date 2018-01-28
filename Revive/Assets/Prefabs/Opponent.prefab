@@ -5913,7 +5913,9 @@ MonoBehaviour:
   acceleration: 8
   stoppingDistance: 2
   autoBraking: 1
+  hasHealOnHands: 0
   target: {fileID: 0}
+  healFXObj: {fileID: 4837073840473192, guid: 38bb2146dde31f847a73fdd822f01a21, type: 2}
 --- !u!137 &137146309296331862
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
