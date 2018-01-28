@@ -1039,7 +1039,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4567226065213370}
-  - component: {fileID: 95258411637581210}
   m_Layer: 0
   m_Name: Necromancer_Opponent
   m_TagString: Untagged
@@ -1702,6 +1701,7 @@ GameObject:
   - component: {fileID: 4622346640445904}
   - component: {fileID: 114767855507086212}
   - component: {fileID: 195473859998926112}
+  - component: {fileID: 95733939169348334}
   m_Layer: 0
   m_Name: Opponent
   m_TagString: Opponent
@@ -5874,13 +5874,13 @@ Transform:
   m_Father: {fileID: 4661324132669204}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &95258411637581210
+--- !u!95 &95733939169348334
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1364998794555230}
+  m_GameObject: {fileID: 1558938264907146}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 5d8abb72ec311ff43a77756881622c1a, type: 3}
   m_Controller: {fileID: 9100000, guid: 885cba85f19d5bd43855eab0b1bb5f3b, type: 2}
@@ -5903,9 +5903,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInteracting: 0
+  isDeath: 0
   overrideAgentValues: 1
+  maxHealth: 10
+  currentHealth: 0
+  upgradeAmount: 0
   graveInteractionTime: 1
-  graveInteractRange: 3
+  graveInteractRange: 4
   flowerInteractionTime: 3
   flowerInteractRange: 3.5
   movementSpeed: 4

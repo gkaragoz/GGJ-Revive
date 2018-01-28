@@ -6,9 +6,15 @@ using UnityEngine.AI;
 
 public class OpponentAI : MonoBehaviour {
     public bool isInteracting = false;
+    public bool isDeath = false;
 
     [Header("Settings")]
     public bool overrideAgentValues = true;
+
+    [Header("Combat Values")]
+    public float maxHealth = 10f;
+    public float currentHealth = 0f;
+    public float upgradeAmount = 0f;
 
     [Header("Values")]
     public float graveInteractionTime = 1f;
@@ -25,10 +31,25 @@ public class OpponentAI : MonoBehaviour {
     public Transform target;
     public Transform healFXObj;
 
+    private Animator anim;
     private List<FlowerManager> interactableFlowers = new List<FlowerManager>();
     private NavMeshAgent agent;
 
+    public float Health
+    {
+        get { return currentHealth; }
+        set
+        {
+            currentHealth = value;
+            if (currentHealth <= 0)
+            {
+                Die();
+            }
+        }
+    }
+
     void Awake() {
+        anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
     }
 	
@@ -132,8 +153,7 @@ public class OpponentAI : MonoBehaviour {
         isInteracting = true;
         StopAgent();
 
-        //anim.Start(graveInteractAnimation);
-
+        anim.SetTrigger("CallSkeleton");
         target.GetComponent<GraveManager>().OnInteracted(SkeletonAI.Team.Enemy);
         //FX.Play(skeletonSpawn);
 
@@ -261,5 +281,17 @@ public class OpponentAI : MonoBehaviour {
 
         Gizmos.color = new Color(0, 1, 0, 1f);
         Gizmos.DrawWireSphere(transform.position, graveInteractRange);
+    }
+
+    void Die() {
+        GameManager.instance.isGameFinished = true;
+        isDeath = true;
+        isInteracting = false;
+        maxHealth = 0;
+        anim.SetTrigger("Die");
+        StopAgent();
+
+        if (agent != null)
+            Destroy(agent);
     }
 }

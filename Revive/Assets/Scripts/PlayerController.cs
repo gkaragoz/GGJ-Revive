@@ -231,7 +231,6 @@ public class PlayerController : MonoBehaviour {
         isInteracting = false;
         maxHealth = 0;
         anim.SetTrigger("Die");
-        anim.SetBool("Walk", false);
         StopAgent();
 
         if (agent != null)
