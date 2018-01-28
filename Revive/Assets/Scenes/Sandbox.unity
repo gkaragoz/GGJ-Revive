@@ -19297,7 +19297,7 @@ Prefab:
     - target: {fileID: 114767855507086212, guid: 13e57c0586cbdec43810d01f518774bc,
         type: 2}
       propertyPath: graveInteractionTime
-      value: 122
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 13e57c0586cbdec43810d01f518774bc, type: 2}

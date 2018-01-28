@@ -84,11 +84,10 @@ public class SkeletonAI : MonoBehaviour {
         }
 
         SkeletonAI skeleton = GetClosestSkeleton();
-        if (skeleton == null) {
+        if (skeleton == null || skeleton.isDeath == true) {
             SetTarget(necromancerTarget);
             if (HasTargetReached(necromancerTarget)) {
-                if (necromancerTarget.tag == "Player")
-                {
+                if (necromancerTarget.tag == "Player") {
                     if (necromancerTarget.GetComponent<PlayerController>().isDeath == false) {
                         if (isAttacking == false) {
                             StartCoroutine(Attack(necromancerTarget));
@@ -137,7 +136,7 @@ public class SkeletonAI : MonoBehaviour {
         isAttacking = true;
         anim.SetBool("isAttacking", isAttacking);
         StopAgent();
-        
+
         if (obj.gameObject.tag == "Skeleton")
         {
             SkeletonAI skeleton = obj.GetComponent<SkeletonAI>();
@@ -158,6 +157,17 @@ public class SkeletonAI : MonoBehaviour {
                 anim.SetTrigger("Attack");
                 yield return new WaitForSeconds(attackSpeed);
                 StartCoroutine(player.HitDamage(attackDamage));
+            }
+        }
+        else if (obj.gameObject.tag == "Opponent")
+        {
+            OpponentAI opponent = obj.GetComponent<OpponentAI>();
+
+            while (opponent.isDeath == false && HasTargetReached(opponent.transform) == true)
+            {
+                anim.SetTrigger("Attack");
+                yield return new WaitForSeconds(attackSpeed);
+                StartCoroutine(opponent.HitDamage(attackDamage));
             }
         }
 

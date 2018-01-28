@@ -56,6 +56,9 @@ public class OpponentAI : MonoBehaviour {
     }
 	
 	void Update () {
+        if (isDeath)
+            return;
+
         if (overrideAgentValues)
             SetAgent();
 
@@ -200,6 +203,12 @@ public class OpponentAI : MonoBehaviour {
         hasHealOnHands = true;
         isInteracting = false;
         ReleaseAgent();
+    }
+
+    public IEnumerator HitDamage(float amount) {
+        Health -= amount;
+        //Take hit animation.
+        yield return new WaitForSeconds(0f);
     }
 
     bool HasArrivedTarget(Transform target) {
