@@ -240,11 +240,13 @@ public class OpponentAI : MonoBehaviour {
     }
 
     void ReleaseAgent() {
-        agent.isStopped = false;
+        if (agent != null)
+            agent.isStopped = false;
     }
 
     void StopAgent() {
-        agent.isStopped = true;
+        if (agent != null)
+            agent.isStopped = true;
     }
 
     GraveManager GetClosestAvailableGrave() {

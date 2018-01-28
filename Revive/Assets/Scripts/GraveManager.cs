@@ -46,6 +46,7 @@ public class GraveManager : MonoBehaviour {
     void InstantiateSkeleton(SkeletonAI.Team team) {
         SkeletonAI skeleton = Instantiate(skeletonAIPrefab, spawnPoint.transform.position, Quaternion.identity).GetComponent<SkeletonAI>();
         skeleton.SetTeam(team);
+        skeleton.SetStatsText();
         GameManager.instance.allSkeletons.Add(skeleton);
     }
 }

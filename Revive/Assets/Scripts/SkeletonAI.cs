@@ -38,6 +38,8 @@ public class SkeletonAI : MonoBehaviour {
     public Transform necromancerTarget;
     public TextMesh txtStats;
 
+    public Color opponentColor;
+    public Color playerColor;
     private Animator anim;
 
     public float Health {
@@ -120,11 +122,11 @@ public class SkeletonAI : MonoBehaviour {
         }
     }
 
-    void SetStatText() {
+    public void SetStatsText() {
         if (team == Team.Player) {
-            txtStats.color = new Color(23, 179, 210);
-        } else {
-            txtStats.color = new Color(210, 89, 23);
+            txtStats.color = playerColor;
+        } else if (team == Team.Enemy) {
+            txtStats.color = opponentColor;
         }
 
         txtStats.text = attackDamage + " + " + upgradeAmount;
