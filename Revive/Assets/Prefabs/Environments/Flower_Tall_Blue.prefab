@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33432253443971328}
   - component: {fileID: 114555415232440368}
   m_Layer: 0
-  m_Name: Flower_Tall_Blue 1
+  m_Name: Flower_Tall_Blue
   m_TagString: Flower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55,6 +55,7 @@ GameObject:
   - component: {fileID: 4961606609943258}
   - component: {fileID: 33512939375489122}
   - component: {fileID: 23832612225987180}
+  - component: {fileID: 65530633198920444}
   m_Layer: 0
   m_Name: Flower_Tall_Blue
   m_TagString: Untagged
@@ -245,6 +246,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.027117252, y: 0.024891563, z: 0.015302941}
   m_Center: {x: -0.00051199226, y: -0.00020409604, z: 0.0065952996}
+--- !u!65 &65530633198920444
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1177495560908850}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.08415474, y: 0.08357201, z: 0.008603469}
+  m_Center: {x: 0.00034208596, y: 0.00028567022, z: 0.003433967}
 --- !u!114 &114555415232440368
 MonoBehaviour:
   m_ObjectHideFlags: 1
