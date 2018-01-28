@@ -32,6 +32,7 @@ public class SkeletonAI : MonoBehaviour {
     public float angularSpeed = 360;
     public float acceleration = 8;
     public float stoppingDistance = 0f;
+    public float bornOffsetTime = -0.2f;
     public bool autoBraking = true;
     [HideInInspector]
     public Transform target;
@@ -41,6 +42,7 @@ public class SkeletonAI : MonoBehaviour {
     public Color opponentColor;
     public Color playerColor;
     private Animator anim;
+    private float bornRotateVariation = 50f;
 
     public float Health {
         get { return currentHealth; }
@@ -57,8 +59,12 @@ public class SkeletonAI : MonoBehaviour {
     void Awake() {
         agent = GetComponent<NavMeshAgent>();
 
+        attackSpeed = Random.Range(1f, 2f);
+        bornOffsetTime = Random.Range(-0.2f, -0.5f);
+        bornRotateVariation = Random.Range(50f, 150f);
         currentHealth = maxHealth;
         anim = GetComponent<Animator>();
+        RotateALilBit();
         StartCoroutine(BornAnimation());
     }
 
@@ -200,6 +206,10 @@ public class SkeletonAI : MonoBehaviour {
         SetNecromancerTarget();
     }
 
+    public void RotateALilBit() {
+        transform.Rotate(Vector3.up * bornRotateVariation); 
+    }
+
     void ReleaseAgent() {
         if (agent != null)
             agent.isStopped = false;
@@ -214,7 +224,7 @@ public class SkeletonAI : MonoBehaviour {
         isBorning = true;
         StopAgent();
 
-        yield return new WaitForSeconds(AnimationDatas.instance.GetAnimationLength(AnimationDatas.AnimationStates.Born));
+        yield return new WaitForSeconds(bornOffsetTime + AnimationDatas.instance.GetAnimationLength(AnimationDatas.AnimationStates.Born));
 
         ReleaseAgent();
         isBorning = false;

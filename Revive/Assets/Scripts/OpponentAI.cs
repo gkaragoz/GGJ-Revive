@@ -115,6 +115,7 @@ public class OpponentAI : MonoBehaviour {
             isInteracting = true;
             hasHealOnHands = false;
             GameObject fx = Instantiate(healFXObj.gameObject, transform.position, Quaternion.identity);
+            fx.transform.parent = GameObject.Find("FX_TRASH").transform;
             fx.GetComponent<Projectile>().SetTarget(skeleton.transform, SkeletonAI.Team.Enemy);
             isInteracting = false;
         }

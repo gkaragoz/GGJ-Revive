@@ -223,6 +223,7 @@ public class PlayerController : MonoBehaviour {
                         if (hit.transform.gameObject.GetComponent<SkeletonAI>().team == SkeletonAI.Team.Player) {
                             hasHealOnHands = false;
                             GameObject fx = Instantiate(healFXObj.gameObject, transform.position, Quaternion.identity);
+                            fx.transform.parent = GameObject.Find("FX_TRASH").transform;
                             fx.GetComponent<Projectile>().SetTarget(hit.transform, SkeletonAI.Team.Player);
                         } 
                     }
