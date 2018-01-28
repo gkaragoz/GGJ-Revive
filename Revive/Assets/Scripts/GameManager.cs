@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour {
     public PlayerController player;
     public OpponentAI opponent;
 
+    public bool isGameFinished = false;
+
     public static GameManager instance;
 
     void Awake() {

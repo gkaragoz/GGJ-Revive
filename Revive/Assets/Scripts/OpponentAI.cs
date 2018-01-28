@@ -6,9 +6,15 @@ using UnityEngine.AI;
 
 public class OpponentAI : MonoBehaviour {
     public bool isInteracting = false;
+    public bool isDeath = false;
 
     [Header("Settings")]
     public bool overrideAgentValues = true;
+
+    [Header("Combat Values")]
+    public float maxHealth = 10f;
+    public float currentHealth = 0f;
+    public float upgradeAmount = 0f;
 
     [Header("Values")]
     public float graveInteractionTime = 1f;
@@ -20,13 +26,30 @@ public class OpponentAI : MonoBehaviour {
     public float acceleration = 8;
     public float stoppingDistance = 0f;
     public bool autoBraking = true;
+    public bool hasHealOnHands = false;
     [HideInInspector]
     public Transform target;
+    public Transform healFXObj;
 
+    private Animator anim;
     private List<FlowerManager> interactableFlowers = new List<FlowerManager>();
     private NavMeshAgent agent;
 
+    public float Health
+    {
+        get { return currentHealth; }
+        set
+        {
+            currentHealth = value;
+            if (currentHealth <= 0)
+            {
+                Die();
+            }
+        }
+    }
+
     void Awake() {
+        anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
     }
 	
@@ -53,6 +76,13 @@ public class OpponentAI : MonoBehaviour {
                     Transform grave = GetClosestAvailableGrave().transform;
                     SetTarget(grave);
                 } else {
+                    if (hasHealOnHands) {
+                        Transform skeleton = GetClosestFriendSkeleton().transform;
+
+                        if (skeleton != null)
+                            HealIt(skeleton);
+                    }
+
                     if (Random.Range(0, 1f) < 0.5f) { //50% percentage of chance.  
                         Transform grave = GetClosestAvailableGrave().transform;
                         SetTarget(grave);
@@ -70,12 +100,37 @@ public class OpponentAI : MonoBehaviour {
         }
 	}
 
+    void HealIt(Transform skeleton) {
+        if (skeleton.gameObject.GetComponent<SkeletonAI>().isDeath == false) {
+            isInteracting = true;
+            hasHealOnHands = false;
+            GameObject fx = Instantiate(healFXObj.gameObject, transform.position, Quaternion.identity);
+            fx.GetComponent<Projectile>().SetTarget(skeleton.transform, SkeletonAI.Team.Enemy);
+            isInteracting = false;
+        }
+    }
+
     void SetAgent() {
         agent.speed = movementSpeed;
         agent.angularSpeed = angularSpeed;
         agent.acceleration = acceleration;
         agent.stoppingDistance = stoppingDistance;
         agent.autoBraking = autoBraking;
+    }
+
+    SkeletonAI GetClosestFriendSkeleton() {
+        SkeletonAI closestSkeleton = null;
+        float closestDistance = Mathf.Infinity;
+
+        if (HasAnyLiveSkeletons() == true) {
+            foreach (var skeleton in GameManager.instance.allSkeletons) {
+                if (Vector3.Distance(transform.position, skeleton.transform.position) <= closestDistance) {
+                    closestSkeleton = skeleton;
+                }
+            }
+        }
+
+        return closestSkeleton;
     }
 
     void Interact() {
@@ -98,8 +153,7 @@ public class OpponentAI : MonoBehaviour {
         isInteracting = true;
         StopAgent();
 
-        //anim.Start(graveInteractAnimation);
-
+        anim.SetTrigger("CallSkeleton");
         target.GetComponent<GraveManager>().OnInteracted(SkeletonAI.Team.Enemy);
         //FX.Play(skeletonSpawn);
 
@@ -133,6 +187,7 @@ public class OpponentAI : MonoBehaviour {
         }
 
         yield return new WaitForSeconds(flowerInteractionTime);
+        hasHealOnHands = true;
         isInteracting = false;
         ReleaseAgent();
     }
@@ -226,5 +281,17 @@ public class OpponentAI : MonoBehaviour {
 
         Gizmos.color = new Color(0, 1, 0, 1f);
         Gizmos.DrawWireSphere(transform.position, graveInteractRange);
+    }
+
+    void Die() {
+        GameManager.instance.isGameFinished = true;
+        isDeath = true;
+        isInteracting = false;
+        maxHealth = 0;
+        anim.SetTrigger("Die");
+        StopAgent();
+
+        if (agent != null)
+            Destroy(agent);
     }
 }

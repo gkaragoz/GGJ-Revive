@@ -7,9 +7,15 @@ using UnityEngine.AI;
 public class PlayerController : MonoBehaviour {
 
     public bool isInteracting = false;
+    public bool isDeath = false;
 
     [Header("Settings")]
     public bool overrideAgentValues = true;
+
+    [Header("Combat Values")]
+    public float maxHealth = 10f;
+    public float currentHealth = 0f;
+    public float upgradeAmount = 0f;
 
     [Header("Values")]
     public float graveInteractionTime = 1f;
@@ -21,18 +27,39 @@ public class PlayerController : MonoBehaviour {
     public float acceleration = 8;
     public float stoppingDistance = 0f;
     public bool autoBraking = true;
+    public bool hasHealOnHands = false;
     [HideInInspector]
     public Transform target;
+    public Transform healFXObj;
 
+    private Animator anim;
     private NavMeshAgent agent;
     private List<FlowerManager> interactableFlowers = new List<FlowerManager>();
     private List<GraveManager> interactableGraves = new List<GraveManager>();
 
+    public float Health
+    {
+        get { return currentHealth; }
+        set
+        {
+            currentHealth = value;
+            if (currentHealth <= 0)
+            {
+                Die();
+            }
+        }
+    }
+
     void Start () {
+        anim = GetComponent<Animator>();
+        currentHealth = maxHealth;
         GetReferences();
     }
 
     void Update() {
+        if (isDeath)
+            return;
+
         if (overrideAgentValues) {
             SetAgent();
         }
@@ -56,7 +83,10 @@ public class PlayerController : MonoBehaviour {
 
         if (target != null) {
             if (Input.GetMouseButtonDown(0)) {
-                OnMouseClick();
+                OnMouseLeftClick();
+            }
+            if (Input.GetMouseButtonDown(1)) {
+                OnMouseRightClick(target);
             }
         }
     }
@@ -116,6 +146,7 @@ public class PlayerController : MonoBehaviour {
 
         yield return new WaitForSeconds(flowerInteractionTime);
         isInteracting = false;
+        hasHealOnHands = true;
         ReleaseAgent();
     }
 
@@ -140,7 +171,7 @@ public class PlayerController : MonoBehaviour {
         isInteracting = true;
         StopAgent();
 
-        //anim.Start(graveInteractAnimation);
+        anim.SetTrigger("CallSkeleton");
 
         foreach (var grave in interactableGraves)
         {
@@ -161,11 +192,48 @@ public class PlayerController : MonoBehaviour {
         Gizmos.DrawWireSphere(transform.position, graveInteractRange);
     }
 
-    void OnMouseClick() {
+    public IEnumerator HitDamage(float amount)
+    {
+        Health -= amount;
+        //Take hit animation.
+        yield return new WaitForSeconds(0f);
+    }
+
+    void OnMouseLeftClick() {
         RaycastHit hit;
 
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity)) {
             SetTarget(hit.point);
         }
+    }
+
+    void OnMouseRightClick(Transform target) {
+        RaycastHit hit;
+
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity)) {
+            if (hit.transform.gameObject.tag == "Skeleton") {
+                if (hasHealOnHands == true) {
+                    if (hit.transform.gameObject.GetComponent<SkeletonAI>().isDeath == false) {
+                        if (hit.transform.gameObject.GetComponent<SkeletonAI>().team == SkeletonAI.Team.Player) {
+                            hasHealOnHands = false;
+                            GameObject fx = Instantiate(healFXObj.gameObject, transform.position, Quaternion.identity);
+                            fx.GetComponent<Projectile>().SetTarget(hit.transform, SkeletonAI.Team.Player);
+                        } 
+                    }
+                }
+            }
+        }
+    }
+
+    void Die() {
+        GameManager.instance.isGameFinished = true;
+        isDeath = true;
+        isInteracting = false;
+        maxHealth = 0;
+        anim.SetTrigger("Die");
+        StopAgent();
+
+        if (agent != null)
+            Destroy(agent);
     }
 }
