@@ -18,8 +18,9 @@ public class UIManager : MonoBehaviour {
     public Button btnPlay;
 
 	void Awake () {
-        if (instance == null)
+        if (instance == null) {
             instance = this;
+        }
 
         objGamePlay = GameObject.Find("Canvas").transform.GetChild(0).gameObject;
         objGameOver = GameObject.Find("Canvas").transform.GetChild(1).gameObject;
@@ -27,8 +28,8 @@ public class UIManager : MonoBehaviour {
         btnReplay = objGameOver.GetComponentInChildren<Button>(true);
         btnPlay = objGamePlay.GetComponentInChildren<Button>(true);
 
-        imgYouWin = objGameOver.transform.Find("imgYouWin").gameObject;
-        imgGameOver = objGameOver.transform.Find("imgGameOver").gameObject;
+        imgYouWin = objGameOver.transform.GetChild(2).gameObject;
+        imgGameOver = objGameOver.transform.GetChild(1).gameObject;
 
         imgYouWin.SetActive(false);
         imgGameOver.SetActive(false);
