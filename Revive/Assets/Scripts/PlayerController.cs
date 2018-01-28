@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour {
                 OnMouseLeftClick();
             }
             if (Input.GetMouseButtonDown(1)) {
-                OnMouseRightClick(target);
+                StartCoroutine(OnMouseRightClick(target));
             }
         }
     }
@@ -138,7 +138,7 @@ public class PlayerController : MonoBehaviour {
         isInteracting = true;
         StopAgent();
 
-        //anim.Start(flowerInteractAnimation);
+        anim.SetTrigger("GetFlowerSprit");
 
         foreach (var flower in interactableFlowers) {
 			flower.OnInteracted(transform);
@@ -207,7 +207,11 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    void OnMouseRightClick(Transform target) {
+    IEnumerator OnMouseRightClick(Transform target) {
+        anim.SetTrigger("HealIt");
+
+        yield return new WaitForSeconds(AnimationDatas.instance.GetAnimationLength(AnimationDatas.AnimationStates.HealIt));
+
         RaycastHit hit;
 
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity)) {
