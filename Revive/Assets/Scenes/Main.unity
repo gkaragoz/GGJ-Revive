@@ -1609,22 +1609,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3c719f9eb22390541a779d7cbff5d191, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &134829397 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 120296, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 2}
-  m_PrefabInternal: {fileID: 959551676}
---- !u!114 &134829398
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 134829397}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  profile: {fileID: 11400000, guid: 4d6fe074a03793642890a56e991a3712, type: 2}
 --- !u!1 &139836501
 GameObject:
   m_ObjectHideFlags: 0
@@ -13251,76 +13235,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 459968, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 45
-      objectReference: {fileID: 0}
-    - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 2}
-      propertyPath: limitX
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 2}
-      propertyPath: limitY
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 2}
-      propertyPath: keyboardMovementSpeed
-      value: 35
-      objectReference: {fileID: 0}
-    - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 2}
-      propertyPath: lastTab
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 2}
-      propertyPath: maxHeight
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 2}
-      propertyPath: rotationSped
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 2}
-      propertyPath: useKeyboardZooming
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 2}
-      propertyPath: minHeight
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 459968, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -90.33301
-      objectReference: {fileID: 0}
-    - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 2}
-      propertyPath: scrollWheelZoomingSensitivity
-      value: 35
-      objectReference: {fileID: 0}
-    - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 2}
-      propertyPath: mouseRotationSpeed
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 2}
-      propertyPath: screenEdgeMovementSpeed
-      value: 35
-      objectReference: {fileID: 0}
-    - target: {fileID: 2056488, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 2}
-      propertyPath: m_RenderingPath
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 2}
-      propertyPath: followingSpeed
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 2}
-      propertyPath: targetFollow
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 2}
-      propertyPath: targetOffset.x
-      value: 15
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 9275010, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &965662980
@@ -24816,11 +24731,6 @@ Prefab:
     - target: {fileID: 4622346640445904, guid: 13e57c0586cbdec43810d01f518774bc, type: 2}
       propertyPath: m_RootOrder
       value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 114767855507086212, guid: 13e57c0586cbdec43810d01f518774bc,
-        type: 2}
-      propertyPath: graveInteractionTime
-      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 13e57c0586cbdec43810d01f518774bc, type: 2}
