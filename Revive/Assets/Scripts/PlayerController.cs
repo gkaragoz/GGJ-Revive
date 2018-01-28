@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour {
     public bool autoBraking = true;
     [HideInInspector]
     public Transform target;
+    public Transform healFXObj;
 
     private NavMeshAgent agent;
     private List<FlowerManager> interactableFlowers = new List<FlowerManager>();
@@ -56,7 +57,12 @@ public class PlayerController : MonoBehaviour {
 
         if (target != null) {
             if (Input.GetMouseButtonDown(0)) {
-                OnMouseClick();
+                OnMouseLeftClick();
+            }
+            if (Input.GetMouseButtonDown(1)) {
+
+
+                OnMouseRightClick(target);
             }
         }
     }
@@ -161,11 +167,25 @@ public class PlayerController : MonoBehaviour {
         Gizmos.DrawWireSphere(transform.position, graveInteractRange);
     }
 
-    void OnMouseClick() {
+    void OnMouseLeftClick() {
         RaycastHit hit;
 
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity)) {
             SetTarget(hit.point);
         }
+    }
+
+    void OnMouseRightClick(Transform target) {
+        RaycastHit hit;
+
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity)) {
+            if (hit.transform.gameObject.tag == "Skeleton") {
+                if (hit.transform.gameObject.GetComponent<SkeletonAI>().team == SkeletonAI.Team.Player) {
+                    GameObject fx = Instantiate(healFXObj.gameObject, transform.position, Quaternion.identity);
+                    fx.GetComponent<Projectile>().SetTarget(hit.transform, SkeletonAI.Team.Player);
+                } 
+            }
+        }
+
     }
 }

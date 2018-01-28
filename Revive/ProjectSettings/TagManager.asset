@@ -8,6 +8,7 @@ TagManager:
   - Grave
   - Opponent
   - Flower
+  - Skeleton
   layers:
   - Default
   - TransparentFX

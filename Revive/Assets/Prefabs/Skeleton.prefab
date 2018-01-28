@@ -701,9 +701,10 @@ GameObject:
   - component: {fileID: 114513748937304990}
   - component: {fileID: 195653216269999916}
   - component: {fileID: 95178850487257788}
+  - component: {fileID: 65106704802290038}
   m_Layer: 0
   m_Name: Skeleton
-  m_TagString: Untagged
+  m_TagString: Skeleton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1799,7 +1800,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1586026872239826}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 8.3997, y: 1.6310427e-16, z: -7.345563}
+  m_LocalPosition: {x: 16.596478, y: 2.9363334e-16, z: -13.22407}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4163887619332144}
@@ -2517,6 +2518,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &65106704802290038
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1586026872239826}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2.293991, z: 1}
+  m_Center: {x: -0, y: 1.0430756, z: 0}
 --- !u!95 &95178850487257788
 Animator:
   serializedVersion: 3
