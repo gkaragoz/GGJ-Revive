@@ -43,7 +43,7 @@ public class OpponentAI : MonoBehaviour {
             currentHealth = value;
             if (currentHealth <= 0)
             {
-                Die();
+                StartCoroutine(Die());
             }
         }
     }
@@ -56,6 +56,9 @@ public class OpponentAI : MonoBehaviour {
     }
 	
 	void Update () {
+        if (GameManager.instance.isGameStarted == false)
+            return;
+
         if (isDeath)
             return;
 
@@ -115,7 +118,8 @@ public class OpponentAI : MonoBehaviour {
             isInteracting = true;
             hasHealOnHands = false;
             GameObject fx = Instantiate(healFXObj.gameObject, transform.position, Quaternion.identity);
-            fx.GetComponent<Projectile>().SetTarget(skeleton.transform, SkeletonAI.Team.Enemy);
+            fx.transform.parent = GameObject.Find("FX_TRASH").transform;
+            fx.GetComponent<Projectile>().SetTarget(skeleton.transform, SkeletonAI.Team.Enemy, upgradeAmount);
             isInteracting = false;
         }
     }
@@ -304,13 +308,16 @@ public class OpponentAI : MonoBehaviour {
         Gizmos.DrawWireSphere(transform.position, graveInteractRange);
     }
 
-    void Die() {
-        GameManager.instance.isGameFinished = true;
+    IEnumerator Die() {
         isDeath = true;
         isInteracting = false;
         maxHealth = 0;
         anim.SetTrigger("Die");
         StopAgent();
+
+        GameManager.instance.SetCameraToDeath();
+        yield return new WaitForSeconds(3f);
+        GameManager.instance.GameFinished = true;
 
         if (agent != null)
             Destroy(agent);

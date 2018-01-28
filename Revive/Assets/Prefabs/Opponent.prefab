@@ -4751,7 +4751,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1558938264907146}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.9, y: 0, z: -15.2}
+  m_LocalPosition: {x: 1.9, y: 0, z: -27}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4567226065213370}
@@ -5907,11 +5907,11 @@ MonoBehaviour:
   overrideAgentValues: 1
   maxHealth: 10
   currentHealth: 0
-  upgradeAmount: 0
-  graveInteractionTime: 1
+  upgradeAmount: 2
+  graveInteractionTime: 1.5
   graveInteractRange: 4
   flowerInteractionTime: 3
-  flowerInteractRange: 3.5
+  flowerInteractRange: 5
   movementSpeed: 4
   angularSpeed: 360
   acceleration: 8

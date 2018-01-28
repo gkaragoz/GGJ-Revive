@@ -9,11 +9,11 @@ GameObject:
   m_Component:
   - component: {fileID: 459968}
   - component: {fileID: 2056488}
-  - component: {fileID: 9275010}
   - component: {fileID: 12455804}
   - component: {fileID: 8165074}
   - component: {fileID: 11488424}
   - component: {fileID: 11455738}
+  - component: {fileID: 114162315343554982}
   m_Layer: 0
   m_Name: RTS_Camera
   m_TagString: MainCamera
@@ -27,13 +27,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 120296}
-  m_LocalRotation: {x: 0.7071069, y: 0, z: 0, w: 0.70710677}
-  m_LocalPosition: {x: 0, y: 6.75, z: 0}
+  m_LocalRotation: {x: 0.26981056, y: -0.6551771, z: 0.27138326, w: 0.65138036}
+  m_LocalPosition: {x: 18.18, y: 11.21, z: 26.21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: -90.33301, z: 0}
 --- !u!20 &2056488
 Camera:
   m_ObjectHideFlags: 1
@@ -59,7 +59,7 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RenderingPath: -1
+  m_RenderingPath: 1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
@@ -72,13 +72,6 @@ Camera:
   m_StereoSeparation: 0.022
 --- !u!81 &8165074
 AudioListener:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 120296}
-  m_Enabled: 1
---- !u!92 &9275010
-Behaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -104,26 +97,26 @@ MonoBehaviour:
   targetingSettingsFoldout: 1
   inputSettingsFoldout: 1
   useFixedUpdate: 0
-  keyboardMovementSpeed: 5
-  screenEdgeMovementSpeed: 3
-  followingSpeed: 5
-  rotationSped: 3
+  keyboardMovementSpeed: 35
+  screenEdgeMovementSpeed: 35
+  followingSpeed: 50
+  rotationSped: 60
   panningSpeed: 25
-  mouseRotationSpeed: 100
+  mouseRotationSpeed: 60
   autoHeight: 1
   groundMask:
     serializedVersion: 2
     m_Bits: 55
-  maxHeight: 15
+  maxHeight: 20
   minHeight: 10
   heightDampening: 5
   keyboardZoomingSensitivity: 2
-  scrollWheelZoomingSensitivity: 25
+  scrollWheelZoomingSensitivity: 35
   limitMap: 1
-  limitX: 10
-  limitY: 10
+  limitX: 100
+  limitY: 100
   targetFollow: {fileID: 0}
-  targetOffset: {x: 0, y: 0, z: 0}
+  targetOffset: {x: 15, y: 0, z: 0}
   useScreenEdgeInput: 1
   screenEdgeBorder: 25
   useKeyboardInput: 1
@@ -131,7 +124,7 @@ MonoBehaviour:
   verticalAxis: Vertical
   usePanning: 1
   panningKey: 325
-  useKeyboardZooming: 1
+  useKeyboardZooming: 0
   zoomInKey: 101
   zoomOutKey: 113
   useScrollwheelZooming: 1
@@ -171,3 +164,15 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 120296}
   m_IsPrefabParent: 1
+--- !u!114 &114162315343554982
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 120296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 4d6fe074a03793642890a56e991a3712, type: 2}

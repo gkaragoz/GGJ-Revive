@@ -24,7 +24,8 @@ public class SkeletonAI : MonoBehaviour {
     public float currentHealth = 0f;
     public float attackSpeed = 2f;
     public float attackRange = 2f;
-    public float attackDamage = 2f;
+    public float baseDamage = 2f;
+    public float currentDamage = 2f;
     public float upgradeAmount = 0f;
 
     [Header("Movement Values")]
@@ -32,6 +33,7 @@ public class SkeletonAI : MonoBehaviour {
     public float angularSpeed = 360;
     public float acceleration = 8;
     public float stoppingDistance = 0f;
+    public float bornOffsetTime = -0.2f;
     public bool autoBraking = true;
     [HideInInspector]
     public Transform target;
@@ -41,6 +43,7 @@ public class SkeletonAI : MonoBehaviour {
     public Color opponentColor;
     public Color playerColor;
     private Animator anim;
+    private float bornRotateVariation = 50f;
 
     public float Health {
         get { return currentHealth; }
@@ -57,8 +60,13 @@ public class SkeletonAI : MonoBehaviour {
     void Awake() {
         agent = GetComponent<NavMeshAgent>();
 
+        currentDamage = baseDamage;
+        attackSpeed = Random.Range(1f, 2f);
+        bornOffsetTime = Random.Range(-0.2f, -0.5f);
+        bornRotateVariation = Random.Range(50f, 150f);
         currentHealth = maxHealth;
         anim = GetComponent<Animator>();
+        RotateALilBit();
         StartCoroutine(BornAnimation());
     }
 
@@ -76,7 +84,7 @@ public class SkeletonAI : MonoBehaviour {
 
         LookAtCamera(txtStats.transform.parent);
 
-        if (GameManager.instance.isGameFinished) {
+        if (GameManager.instance.GameFinished) {
             StopAgent();
             anim.SetBool("isAttacking", false);
             anim.SetBool("Walk", false);
@@ -117,18 +125,23 @@ public class SkeletonAI : MonoBehaviour {
 
         if (isBorning == false && isAttacking == false) {
             anim.SetBool("Walk", true);
-            agent.SetDestination(target.position);
+
+            if (agent != null && target != null)
+                agent.SetDestination(target.position);
         }
     }
 
     public void SetStatsText() {
+        if (txtStats == null)
+            return;
+
         if (team == Team.Player) {
             txtStats.color = playerColor;
         } else if (team == Team.Enemy) {
             txtStats.color = opponentColor;
         }
 
-        txtStats.text = attackDamage + " + " + upgradeAmount;
+        txtStats.text = baseDamage + " + " + upgradeAmount;
     }
 
     IEnumerator Attack(Transform obj) {
@@ -145,7 +158,7 @@ public class SkeletonAI : MonoBehaviour {
             {
                 anim.SetTrigger("Attack");
                 yield return new WaitForSeconds(attackSpeed);
-                StartCoroutine(skeleton.HitDamage(attackDamage));
+                StartCoroutine(skeleton.HitDamage(currentDamage));
             }
         }
         else if (obj.gameObject.tag == "Player")
@@ -156,7 +169,7 @@ public class SkeletonAI : MonoBehaviour {
             {
                 anim.SetTrigger("Attack");
                 yield return new WaitForSeconds(attackSpeed);
-                StartCoroutine(player.HitDamage(attackDamage));
+                StartCoroutine(player.HitDamage(currentDamage));
             }
         }
         else if (obj.gameObject.tag == "Opponent")
@@ -167,7 +180,7 @@ public class SkeletonAI : MonoBehaviour {
             {
                 anim.SetTrigger("Attack");
                 yield return new WaitForSeconds(attackSpeed);
-                StartCoroutine(opponent.HitDamage(attackDamage));
+                StartCoroutine(opponent.HitDamage(currentDamage));
             }
         }
 
@@ -180,6 +193,12 @@ public class SkeletonAI : MonoBehaviour {
         Health -= amount;
         //Take hit animation.
         yield return new WaitForSeconds(attackSpeed);
+    }
+
+    public void TakePower(float amount) {
+        upgradeAmount += amount;
+        currentDamage = baseDamage + upgradeAmount;
+        SetStatsText();
     }
 
     bool HasTargetReached(Transform target) {
@@ -200,6 +219,10 @@ public class SkeletonAI : MonoBehaviour {
         SetNecromancerTarget();
     }
 
+    public void RotateALilBit() {
+        transform.Rotate(Vector3.up * bornRotateVariation); 
+    }
+
     void ReleaseAgent() {
         if (agent != null)
             agent.isStopped = false;
@@ -214,7 +237,7 @@ public class SkeletonAI : MonoBehaviour {
         isBorning = true;
         StopAgent();
 
-        yield return new WaitForSeconds(AnimationDatas.instance.GetAnimationLength(AnimationDatas.AnimationStates.Born));
+        yield return new WaitForSeconds(bornOffsetTime + AnimationDatas.instance.GetAnimationLength(AnimationDatas.AnimationStates.Born));
 
         ReleaseAgent();
         isBorning = false;

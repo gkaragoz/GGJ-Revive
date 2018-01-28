@@ -13,7 +13,21 @@ public class GameManager : MonoBehaviour {
     public PlayerController player;
     public OpponentAI opponent;
 
-    public bool isGameFinished = false;
+    private bool isGameFinished = false;
+    public bool isGameStarted = false;
+
+    public bool GameFinished
+    {
+        get { return isGameFinished; }
+        set
+        {
+            isGameFinished = value;
+            if (isGameFinished == true)
+            {
+                UIManager.instance.OpenGameOver();
+            }
+        }
+    }
 
     public static GameManager instance;
 
@@ -33,5 +47,13 @@ public class GameManager : MonoBehaviour {
 
         player = GameObject.Find("Player").GetComponent<PlayerController>();
         opponent = GameObject.Find("Opponent").GetComponent<OpponentAI>();
+    }
+
+    public void SetCameraToDeath() {
+        if (player.isDeath)
+            Camera.main.GetComponent<RTS_Cam.RTS_Camera>().SetTarget(player.transform);
+        else if (opponent.isDeath)
+            Camera.main.GetComponent<RTS_Cam.RTS_Camera>().SetTarget(opponent.transform);
+
     }
 }
