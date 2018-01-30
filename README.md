@@ -21,9 +21,9 @@ There is no installation steps in this project. Just follow steps down below:
 ### Screen shots
 ![alt tag](https://preview.ibb.co/hjAzom/revive_cover.png)
 
-![alt tag](https://ggj.s3.amazonaws.com/styles/feature_image__wide/games/screenshots/revive_gameplay_1_1.png?itok=VIyqdDtw&timestamp=1517159878)
+![alt tag](https://preview.ibb.co/f0GB16/revive_gameplay_1.png)
 
-![alt tag](https://ggj.s3.amazonaws.com/styles/feature_image__wide/games/screenshots/revive_gameplay_2_0.png?itok=3ggyhXJ8&timestamp=1517159878)
+![alt tag](https://preview.ibb.co/iNeW16/revive_gameplay_2.png)
 
 #### Known Bugs
 - When the game restarted on the end, the music duplicate itself.
