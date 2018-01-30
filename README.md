@@ -1,7 +1,8 @@
 ### Youtube Gameplay Video.
 [![Gameplay video of the Revive project](https://img.youtube.com/vi/gahDQN4Pjk8/0.jpg)](https://www.youtube.com/watch?v=gahDQN4Pjk8)
 
-#### This project made for GGJ 2018 BUG. ![alt tag](https://globalgamejam.org/2018/games/revive-v10-open-source)
+#### This project made for GGJ 2018 BUG. 
+[GGJ 2018 Project Webpage](https://globalgamejam.org/2018/games/revive-v10-open-source)
 
 ### Revive [Open Source RTS]
 Development has ended!
